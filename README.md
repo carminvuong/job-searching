@@ -1,5 +1,5 @@
 # job-searching website
-for the google mentorship program
+Google Mentorship Program
 
 ### Names:
 - Joseph Mei
