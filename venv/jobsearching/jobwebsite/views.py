@@ -8,3 +8,6 @@ def home(request):
 
 def profile(request):
     return render(request, "jobwebsite/profile.html")
+
+def search(request):
+    return render(request, "jobwebsite/search.html")
