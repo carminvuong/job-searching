@@ -1,48 +1,31 @@
+<!--Links the css file-->
+{% load static %}
 <!DOCTYPE html>
 <html  lang="en-US">
-  <head>
-    <meta charset=utf-8>
-    <title> home </title>
-    <style>
-        nav li {
-           display: inline-block; 
-           position: relative;
-        }
-        nav li ul {
-           display: none;       
-           position: absolute;
-           width: 100px;
-           top: 100%;
-           padding: 0;
-        }
-        nav li:hover > ul {  
-           display: block;
-        }
-        nav a {
-        }
-    </style>
-  </head>
- 
-  <nav>
-    <ul>
-        <li>hi
-            <ul>
-                <li><a href="profile/">Sub Item 1</a></li>
-                <li><a href="search/">Sub Item 2</a></li>
-            </ul>
-        </li>
-    </ul>
-  </nav>
+    <head>
+        <meta charset=utf-8>
+        <title> home </title>
+        <!--Links the css file-->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}"/>
+    </head>
+
+    <nav>
+        <ul>
+            <li>hi
+                <ul>
+                    <li><a href="profile/">Sub Item 1</a></li>
+                    <li><a href="search/">Sub Item 2</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
 
   <body>
-    <h1>
-      JACK LOVES girls
-      ERIC HAS A BIG PP
-    </h1>
-<header>  
-blop
-</header>
-
+    <header>  
+      <h1>
+        booo
+      </h1>
+    </header>   
 
   </body>
 </html>
