@@ -1,31 +1,5 @@
-<!--Links the css file-->
+{% extends "jobwebsite/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html  lang="en-US">
-    <head>
-        <meta charset=utf-8>
-        <title> home </title>
-        <!--Links the css file-->
-        <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}"/>
-    </head>
-
-    <nav>
-        <ul>
-            <li>hi
-                <ul>
-                    <li><a href="profile/">Sub Item 1</a></li>
-                    <li><a href="search/">Sub Item 2</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-
-  <body>
-    <header>  
-      <h1>
-        booo
-      </h1>
-    </header>   
-
-  </body>
-</html>
+{% block content %}
+Home page
+{% endblock %}

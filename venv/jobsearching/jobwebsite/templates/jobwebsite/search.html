@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+{% extends "jobwebsite/base.html" %}
+{% load static %}
+{% block content %}
 <html  lang="en-US">
   <head>
     <meta charset=utf-8>
@@ -7,15 +9,15 @@
  
   <body>
 
-<header>  <!-- the standard header for homework -->
+
 <p>
 <var> (your name) </var><br>
 hw(#)<br>
 worked with <var> (co-worker) </var><br>
 advised by <var> (advisor) </var>
 </p>
-</header>
 
 
   </body>
 </html>
+{% endblock %}
