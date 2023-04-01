@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("jobwebsite.urls")),
     path('signup/', v.signup),
-    path('login/', v.login)
+    path('login/', v.login_request),
+    path('logout/', v.logout_request),
 
 ]
