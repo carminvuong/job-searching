@@ -1,0 +1,22 @@
+{% extends "jobwebsite/base.html" %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+
+
+
+{% block content %}
+{% bootstrap_javascript jquery='full' %}
+{{form.media}}
+<div class="form">
+    <form method="POST" class="form-group">
+        <h1 class="mt-2">
+            Job Support
+         </h1>
+        {% csrf_token %}
+        {{form|crispy}}
+        <p class="btnwrap"><button type="submit" class="btn btn-success" id ="submitBtn"
+            value="r">Signup</button></p>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "jobwebsite/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<form method="post" class="form">
+    <h1 class="mt-2"> 
+        Job Support
+     </h1>
+    {% csrf_token %}
+    {{login_form|crispy}}
+    <br>
+    <button type="submit" class="btn btn-success" id ="submitBtn"
+    value="r">Login</button>
+    <p class="account-text">Don't have an account? Create one <a href="/signup/">here</a></p>
+</form>
+<br>
+{% endblock %}

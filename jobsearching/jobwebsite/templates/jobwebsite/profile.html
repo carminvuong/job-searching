@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        .alertmessage{
+            color:red;
+        }
+        </style>
+
+{% extends "Fitness/base.html" %}
+
+{% block title %} Profile {% endblock %}
+
+</head>
+<body>
+{% block content %} 
+<h1 class="mt-2" style="font-size:50px"> 
+    Aerobit <img style="width:50px;height:60px;" src="/Fitness/templates/Fitness/My project.png">
+ </h1>
+ <hr class="mt-0 mb-4">
+    <h1>{{user.username}}</h1>
+    <form method="POST" action = "#">
+        {% csrf_token %}
+        <br>
+        <h2>Name:</h2>
+        <div class="input-group mb-3">
+            <input type="text", value="{{profile.fullname}}", name="fullname" class="form-control">
+        </div>
+        <h2>Age:</h2>
+        <div class="input-group mb-3">
+            <input type="text", value="{{profile.age}}", name="age" class="form-control">
+        </div>
+        <h2>Height (inches):</h2>
+        <div class="input-group mb-3">
+            <input type="text", value="{{profile.height}}", name="height" class="form-control">
+        </div>
+        <h2>Weight (pounds):</h2>
+        <div class="input-group mb-3">
+            <input type="text", value="{{profile.weight}}", name="weight" class="form-control">
+        </div>
+        <p class="btnwrap"><button type="submit", name="save", value="save" class="btn btn-success">Save</button></p>
+    </form>
+    {% if complete == False %}<div class = "alertmessage" ><p>Please fill in all of the fields to continue.</p></div> {% endif %}
+
+    <div class="input-group mb-3">
+        <p class = "btnwrap"><button id="Survey">Take Your Survey!</button></p>
+
+    </div>
+{% endblock %}
+</body>
+</html>
