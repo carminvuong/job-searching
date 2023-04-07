@@ -6,19 +6,59 @@
   background-color:#40a0e0;
   font-family: 'Montserrat Subrayada', sans-serif; 
   font-size: 30px;
-  overflow:hidden;
 }
 
 .navbar a {
-  float: left;
   font-size: 16px;
-  color: white;
-  text-align: center;
+  color: rgb(255, 255, 255);
   padding: 14px 16px;
   text-decoration: none;
-  display:block;
+  display: block;
 }
 
+.dropbtn {
+  background-color: #3e4df6;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #3e4df6;
+}
+
+.dropdown {
+  float: right;
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  right: 0;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+
+/*
 .dropdown {
   float: left;
   overflow: hidden;
@@ -37,7 +77,7 @@
 }
 
 .navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
-  background-color: red;
+  background-color: green;
 }
 
 .dropdown-content {
@@ -64,7 +104,9 @@
 
 .show {
   display: block;
-}
+} */
+
+
 /*
 nav li {
   display: inline-block; 

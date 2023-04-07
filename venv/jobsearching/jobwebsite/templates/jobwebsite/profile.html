@@ -1,51 +1,44 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <style type="text/css">
-        .alertmessage{
-            color:red;
-        }
-        </style>
-
-{% extends "Fitness/base.html" %}
-
-{% block title %} Profile {% endblock %}
-
-</head>
-<body>
-{% block content %} 
-<h1 class="mt-2" style="font-size:50px"> 
-    Aerobit <img style="width:50px;height:60px;" src="/Fitness/templates/Fitness/My project.png">
- </h1>
- <hr class="mt-0 mb-4">
-    <h1>{{user.username}}</h1>
-    <form method="POST" action = "#">
-        {% csrf_token %}
-        <br>
-        <h2>Name:</h2>
-        <div class="input-group mb-3">
-            <input type="text", value="{{profile.fullname}}", name="fullname" class="form-control">
-        </div>
-        <h2>Age:</h2>
-        <div class="input-group mb-3">
-            <input type="text", value="{{profile.age}}", name="age" class="form-control">
-        </div>
-        <h2>Height (inches):</h2>
-        <div class="input-group mb-3">
-            <input type="text", value="{{profile.height}}", name="height" class="form-control">
-        </div>
-        <h2>Weight (pounds):</h2>
-        <div class="input-group mb-3">
-            <input type="text", value="{{profile.weight}}", name="weight" class="form-control">
-        </div>
-        <p class="btnwrap"><button type="submit", name="save", value="save" class="btn btn-success">Save</button></p>
-    </form>
-    {% if complete == False %}<div class = "alertmessage" ><p>Please fill in all of the fields to continue.</p></div> {% endif %}
-
-    <div class="input-group mb-3">
-        <p class = "btnwrap"><button id="Survey">Take Your Survey!</button></p>
-
+{% extends "jobwebsite/base.html" %}
+{% block title %}Profile Page{% endblock title %}
+{% block content %}
+    <div class="row my-3 p-3">
+        <img class="rounded-circle account-img" src="{{ form.profile.avatar.url }} " style="cursor: pointer;"/>
     </div>
-{% endblock %}
-</body>
-</html>
+    {% if form.errors %}
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <div id="form_errors">
+                {% for key, value in form.errors.items %}
+                    <strong>{{ value }}</strong>
+                {% endfor %}
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
+    <div class="form-content">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="small mb-1">Username:</label>
+                            {{ form.username }}
+                        <label class="small mb-1">Email:</label>
+                            {{ form.email }}
+                    </div>
+                    <div class="form-group">
+                        <a href="#">Change Password</a>
+                        <hr>
+                        <label class="small mb-1">Change Avatar:</label>
+                        {{ form.avatar }}
+                    </div>
+                    <label class="small mb-1">Email:</label> {{ form.email }}
+                </div>
+            </div>
+            <br><br>
+            <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
+            <button type="reset" class="btn btn-dark btn-lg">Reset</button>
+        </form>
+    </div>
+{% endblock content %}

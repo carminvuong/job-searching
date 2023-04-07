@@ -9,7 +9,8 @@ from bootstrap_datepicker_plus.widgets import (DatePickerInput, DateTimePickerIn
 
 
 class SignupForm(UserCreationForm):
-    email = forms.EmailField()
+    username = forms.CharField(max_length='1000')
+    email = forms.EmailField(help_text='A valid email address, please.')
     first_name = forms.CharField(max_length=1000)
     last_name = forms.CharField(max_length=1000)
     birth_date = forms.DateField(
@@ -22,7 +23,13 @@ class SignupForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super(SignupForm, self).save(commit=False)
+        user.username = self.cleaned_data['username']
         user.email = self.cleaned_data['email']
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.password1 = self.cleaned_data['password1']
+        user.password2 = self.cleaned_data['password2']
+
         if commit:
             user.save()
         return user
