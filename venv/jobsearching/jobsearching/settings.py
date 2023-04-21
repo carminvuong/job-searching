@@ -23,13 +23,15 @@ MESSAGE_TAGS = {
 }
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 STATIC_URL = '/static/'
 # Directory where uploaded media is saved.
-MEDIA_ROOT = os.path.join(BASE_DIR, 'jobwebsite/static/images')
+MEDIA_ROOT = os.path.join(
+    BASE_DIR, "jobsearching\jobwebsite\static\images")
 MEDIA_URL = '/images/'  # Public URL at the browser
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "jobwebsite/static"),]
+STATICFILES_DIRS = [os.path.join(
+    BASE_DIR, "jobsearching\jobwebsite\static"),]
 
 
 # Quick-start development settings - unsuitable for production
