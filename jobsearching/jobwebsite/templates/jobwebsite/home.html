@@ -1,43 +1,51 @@
 {% extends "jobwebsite/base.html" %}
 {% load static %} 
 {% block content %}
-<section> <h1> A Beacon in a Sea of Jobs </h1> </section>
+
+<section>
+    <h1> A Beacon in a Sea of Jobs </h1>
+    <form action="" class="search-bar">
+            <input type="text" placeholder="search anything" name="q">
+            <button type="submit">boo</button>
+    </form>
+</section>
+
 
 <section> 
     <div class="container">  
         <h2> Mission Statement </h2>
         <div class="statementBox">
-        <p>
-        As high school and college students transition into the real world from the school environment, a big difficulty that arises is searching for a job.         
-        Finding a convenient job that matches your interests and experience can prove to be especially challenging, especially as the number of available career options increases in society. It becomes extremely difficult to narrow down your options in the face of endless possibilities or even discover the right job that fits your interests, so our project aims to resolve this issue by facilitating the job search process for everyone.
-        Our project proposal is a job-searching web application designed to help people of all ages find the perfect job that suits their interests or follow internships as a starting point for their future careers.
-        </p>
+            <p>
+            As high school and college students transition into the real world from the school environment, a big difficulty that arises is searching for a job.         
+            Finding a convenient job that matches your interests and experience can prove to be especially challenging, especially as the number of available career options increases in society. It becomes extremely difficult to narrow down your options in the face of endless possibilities or even discover the right job that fits your interests, so our project aims to resolve this issue by facilitating the job search process for everyone.
+            Our project proposal is a job-searching web application designed to help people of all ages find the perfect job that suits their interests or follow internships as a starting point for their future careers.
+            </p>
+        </div>
     </div>
-    </div>
-
 </section>
 
 <section> 
     <div class="container">  
         <h2> About Us </h2> 
-        <div class ="founders">
-            <h3> Jack </h3>
-            <div class="info"> </div>
-        </div> 
-        <div class ="founders">
-            <h3> Joseph </h3>
-            <div class="info"> </div>
-        </div> 
-        <div class ="founders">
-            <h3> Carmin </h3>
-            <div class="info"> </div>
-        </div> 
-        <div class ="founders">
-            <h3> Eric </h3>
-            <div class="info"> </div>
-        </div> 
+        <div class ="person">
+            <div class ="founders">
+                <h3> Jack </h3>
+                <p> Hi </p>
+            </div> 
+            <div class ="founders">
+                <h3> Joseph </h3>
+                <p> Hi </p>
+            </div> 
+            <div class ="founders">
+                <h3> Carmin </h3>
+                <p> Hi </p>
+            </div> 
+            <div class ="founders">
+                <h3> Eric </h3>
+                <p> Hi </p>
+            </div> 
+        </div>
     </div>
-
 </section>
 
 {% endblock %}

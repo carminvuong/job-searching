@@ -34,13 +34,12 @@ class Profile(models.Model):
         super().save()
 
         img = Image.open(
-            'C:\\Users\\JackJ\\OneDrive\\Desktop\\job-searching\\venv\\jobsearching\\jobwebsite\\static\\images\\Cat03.jpg')
-
+            r'C:\Users\JackJ\OneDrive\Desktop\job-searching\jobsearching\jobwebsite\static\images\Cat03.jpg')
         if img.height > 100 or img.width > 100:
             new_img = (100, 100)
             img.thumbnail(new_img)
             img.save(
-                'C:\\Users\\JackJ\\OneDrive\\Desktop\\job-searching\\venv\\jobsearching\\jobwebsite\\static\\images\\Cat03.jpg')
+                r'C:\Users\JackJ\OneDrive\Desktop\job-searching\jobsearching\jobwebsite\static\images\Cat03.jpg')
 
     def __str__(self):
         # show how we want it to be displayed
