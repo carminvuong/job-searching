@@ -10,10 +10,10 @@
     </form>
 </div>
 
+<section></section>
 
-
-<section> 
-    <div class="container">  
+<section id="mission"> 
+    <div class="container reveal">  
         <h2> Mission Statement </h2>
         <div class="statementBox">
             <p>
@@ -25,8 +25,8 @@
     </div>
 </section>
 
-<section> 
-    <div class="container">  
+<section id="about"> 
+    <div class="container reveal">  
         <h2> About Us </h2> 
         <div class ="founders">
             <div class ="person">
@@ -48,5 +48,25 @@
         </div>
     </div>
 </section>
+
+<script type="text/javascript">
+    window.addEventListener("scroll", reveal);
+
+function reveal(){
+  var reveals = document.querySelectorAll(".reveal");
+  for(var i = 0; i < reveals.length; i++){
+    var windowHeight = window.innerHeight;
+    var revealTop = reveals[i].getBoundingClientRect().top;
+    var revealPoint = 150;
+
+    if(revealTop < windowHeight - revealPoint){
+      reveals[i].classList.add("active");
+    }
+    else{
+      reveals[i].classList.remove("active");
+    }
+  }
+}
+</script>
 
 {% endblock %}
