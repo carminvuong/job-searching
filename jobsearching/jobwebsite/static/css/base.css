@@ -7,18 +7,17 @@
 }
 
 .navbar {
-  margin: 0px;
-  padding: 0px;
   background-color: #3F72AF;
-  /*background-color:rgb(108, 173, 252);*/
+  overflow: hidden;
   font-family: 'Poppins', sans-serif; 
+  justify-content: none;
   font-size: 30px;
 }
 
 .navbar a {
   float: left;
   font-size: 16px;
-  color: white;
+  color: rgb(0, 0, 0);
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;

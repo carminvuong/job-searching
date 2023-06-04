@@ -5,17 +5,27 @@ from django.contrib.auth.models import User
 from bootstrap_datepicker_plus.widgets import (DatePickerInput, DateTimePickerInput,
                                                MonthPickerInput,
                                                TimePickerInput,
-                                               YearPickerInput,)
+                                               YearPickerInput,
+                                               )
+from django.forms import EmailInput, TextInput, PasswordInput
 
 
 class SignupForm(UserCreationForm):
-    email = forms.EmailField()
-    first_name = forms.CharField(max_length=1000)
-    last_name = forms.CharField(max_length=1000)
+
+    email = forms.EmailField(widget=forms.EmailInput(
+        attrs={'placeholder': 'Email', 'style': 'width: 300px;', 'class': 'form-control'}))
+    first_name = forms.CharField(max_length=1000, widget=forms.TextInput(
+        attrs={'placeholder': 'First Name', 'style': 'width: 300px;', 'class': 'form-control'}))
+    last_name = forms.CharField(max_length=1000, widget=forms.TextInput(
+        attrs={'placeholder': 'Last Name', 'style': 'width: 300px;', 'class': 'form-control'}))
     birth_date = forms.DateField(
         label="Date", widget=DatePickerInput(), initial="2021-12-13")
     age = forms.IntegerField(widget=forms.TextInput(
         attrs={'min': 16, 'max': 100, 'value': 18, 'type': 'number', 'style': 'max-width: 5em'}))
+    # password1 = forms.CharField(max_length=1000, widget=forms.PasswordInput(
+    #    attrs={'placeholder': 'Password1', 'style': 'width: 300px;', 'class': 'form-control'}))
+    # password2 = forms.CharField(max_length=1000, widget=forms.PasswordInput(
+    #    attrs={'placeholder': 'Password2', 'style': 'width: 300px;', 'class': 'form-control'}))
 
     class Meta:
         model = User

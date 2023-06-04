@@ -1,17 +1,18 @@
-
-
-.cont{
+.search{
   width: 100%;
-  padding: 5%;
-  background-position: center;
-  background-size: cover;
+  padding: 15%;
   align-items: center;
   justify-content: center;
+  min-height: 100vh;
+  background-position: center;
+  background-size: cover;
 }
 
-.d1 {
-  height:400px;
-
+h1 {
+  font-size: 50px;
+  color: #000000;
+  text-align: center;
+  margin: 0 0 20px;
 }
 
 .search-bar {
@@ -21,7 +22,7 @@
   border-radius: 5px;
   display: flex;
   margin: 0 auto;
-  margin-top:250px;
+  margin-top: 50px;
   box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
   align-items: center;
 }
