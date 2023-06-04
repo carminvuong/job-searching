@@ -12,9 +12,13 @@ def home(request):
 
 
 def profile(request):
-    user_form = UserForm(instance=request.user)
-    profile_form = UpdateProfile(instance=request.user.profile)
-    return render(request=request, template_name=r"jobwebsite\profile.html", context={"user": request.user, "user_form": user_form, "profile_form": profile_form})
+    if request.user.is_authenticated:
+        user_form = UserForm(instance=request.user)
+        profile_form = UpdateProfile(instance=request.user.profile)
+
+        return render(request=request, template_name=r"jobwebsite\profile.html", context={"user": request.user, "user_form": user_form, "profile_form": profile_form})
+    else:
+        return HttpResponseRedirect("/signup/")
 
 
 def search(request):
