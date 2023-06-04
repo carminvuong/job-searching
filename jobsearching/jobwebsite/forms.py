@@ -11,8 +11,6 @@ class UserForm(forms.ModelForm):
 
 
 class UpdateProfile(forms.ModelForm):
-    avatar = forms.ImageField(widget=forms.FileInput(
-        attrs={'class': 'form-control-file'}))
     email = forms.EmailField(required=False)
     username = forms.CharField(max_length="1000", required=False)
     first_name = forms.CharField(max_length='1000', required=False)
@@ -22,5 +20,5 @@ class UpdateProfile(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['avatar', 'email', 'username', 'first_name',
+        fields = ['email', 'username', 'first_name',
                   'last_name', 'age', 'birthdate']
