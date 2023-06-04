@@ -11,13 +11,5 @@ def create_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
         profile = Profile(user=instance)
         profile.save()
-        print("Object created")
     else:
-        try:
-            Profile.objects.get(user=instance)
-            print("hi 1")
-        except:
-            Profile.objects.create(user=instance)
-            profile = Profile(user=instance)
-            profile.save()
-            print("hi2")
+        Profile.objects.get(user=instance)

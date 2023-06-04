@@ -14,15 +14,21 @@ class SignupForm(UserCreationForm):
     last_name = forms.CharField(max_length=1000)
     birth_date = forms.DateField(
         label="Date", widget=DatePickerInput(), initial="2021-12-13")
+    age = forms.IntegerField(widget=forms.TextInput(
+        attrs={'min': 16, 'max': 100, 'value': 18, 'type': 'number', 'style': 'max-width: 5em'}))
 
     class Meta:
         model = User
-        fields = ["username", "first_name", "last_name", "birth_date",
-                  "email", "password1", "password2"]
+        fields = ["email", "username", "first_name", "last_name", "age", "birth_date",
+                  "password1", "password2"]
 
     def save(self, commit=True):
         user = super(SignupForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.age = self.cleaned_data['age']
+        user.birth_date = self.cleaned_data['birth_date']
         if commit:
             user.save()
         return user

@@ -10,7 +10,7 @@ from bootstrap_datepicker_plus.widgets import DatePickerInput
 
 def signup(request):
     if request.method == "POST":
-        form = SignupForm(request.POST)
+        form = SignupForm(request.POST, instance=request.user)
         if form.is_valid():
             user = form.save()
             login(request, user)
