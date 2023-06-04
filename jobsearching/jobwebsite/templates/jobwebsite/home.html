@@ -1,7 +1,15 @@
 {% extends "jobwebsite/base.html" %}
 {% load static %} 
-{% block content %}
 
+{% block title %}
+Home
+{% endblock %}
+
+{% block css %} 
+<link href="{% static 'css/home.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
 <div class="cont">
     <h1 style="text-align: center;"> A Beacon in a Sea of Jobs </h1>
     <form action="" class="search-bar" style="border-radius:10px !important">
@@ -30,19 +38,19 @@
         <h2> About Us </h2> 
         <div class ="founders">
             <div class ="person">
-                <h3> Jack </h3>
+                <h3> Jack Jiang </h3>
                 <p> Hi asudhjapdusahjdsaahsdpsadjjasdji </p>
             </div> 
             <div class ="person">
-                <h3> Joseph </h3>
+                <h3> Joseph Mei</h3>
                 <p> Hi asudhjapdusahjdsaahsdpsadjjasdji </p>
             </div> 
             <div class ="person">
-                <h3> Carmin </h3>
+                <h3> Carmin Vuong </h3>
                 <p> Hi asudhjapdusahjdsaahsdpsadjjasdji </p>
             </div> 
             <div class ="person">
-                <h3> Eric </h3>
+                <h3> Eric Wu</h3>
                 <p> Hi asudhjapdusahjdsaahsdpsadjjasdji </p>
             </div> 
         </div>
