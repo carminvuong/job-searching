@@ -1,51 +1,63 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <style type="text/css">
-        .alertmessage{
-            color:red;
-        }
-        </style>
+{% extends "jobwebsite/base.html" %}
+{% load static %} 
 
-{% extends "Fitness/base.html" %}
+	{% block content %}
 
-{% block title %} Profile {% endblock %}
+	{% load crispy_forms_tags %}  
 
-</head>
-<body>
-{% block content %} 
-<h1 class="mt-2" style="font-size:50px"> 
-    Aerobit <img style="width:50px;height:60px;" src="/Fitness/templates/Fitness/My project.png">
- </h1>
- <hr class="mt-0 mb-4">
-    <h1>{{user.username}}</h1>
-    <form method="POST" action = "#">
-        {% csrf_token %}
-        <br>
-        <h2>Name:</h2>
-        <div class="input-group mb-3">
-            <input type="text", value="{{profile.fullname}}", name="fullname" class="form-control">
+	<!--User-->
+	<br><br>
+	<div class="container mx-auto">
+	    <div class="row">
+	    	<div class="col-sm-12 col-md-12 col-lg-3 pb-4">
+		    	<div class="card p-4">
+			    	<h4 class="card-title font-weight-bold text-center">Hello, {{ user.username }}</h4>
+			      	<hr>
+			    	<div class="card-text">
+			    		<p class="text-muted mb-0" style="font-size: 12px">Username:</p>
+			    		<p>{{ user.username }}</p>
+			    		<p class="text-muted mb-0" style="font-size: 12px">Name:</p>
+				  		<p>{{ user.first_name }} {{ user.last_name }}</p>
+				  		<p class="text-muted mb-0" style="font-size: 12px">Email:</p>
+				  		<p>{{ user.email }} </p>
+                          <div class="text-right">
+							<button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#profileModal">Edit Profile</button>
+						</div>
+			        </div>
+		    	</div>
+		  	</div>
+		    <div class="col-sm-12 col-md-12 col-lg-9 pb-4">
+		    	<div class="row">
+		    		<div class="col-6 my-auto">
+		    			<h2 class="font-weight-bold pt-4">Favorites</h2>
+		    		</div>
+		    	</div>
+		      	<br>
+		    </div> 
+		</div>
+	</div>
+
+    <div class="modal fade" tabindex="-1" id="profileModal" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Edit Profile</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <form method="post">
+                        {% csrf_token %}
+                        {{ user_form|crispy }}
+              </div>
+                <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary">Save changes</button>
+                  </form> 
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+          </div>
         </div>
-        <h2>Age:</h2>
-        <div class="input-group mb-3">
-            <input type="text", value="{{profile.age}}", name="age" class="form-control">
-        </div>
-        <h2>Height (inches):</h2>
-        <div class="input-group mb-3">
-            <input type="text", value="{{profile.height}}", name="height" class="form-control">
-        </div>
-        <h2>Weight (pounds):</h2>
-        <div class="input-group mb-3">
-            <input type="text", value="{{profile.weight}}", name="weight" class="form-control">
-        </div>
-        <p class="btnwrap"><button type="submit", name="save", value="save" class="btn btn-success">Save</button></p>
-    </form>
-    {% if complete == False %}<div class = "alertmessage" ><p>Please fill in all of the fields to continue.</p></div> {% endif %}
+  </div>
 
-    <div class="input-group mb-3">
-        <p class = "btnwrap"><button id="Survey">Take Your Survey!</button></p>
-
-    </div>
-{% endblock %}
-</body>
-</html>
+	{% endblock %}
