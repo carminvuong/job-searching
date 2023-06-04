@@ -9,7 +9,8 @@
 .navbar {
   margin: 0px;
   padding: 0px;
-  background-color:rgb(108, 173, 252);
+  background-color: #3F72AF;
+  /*background-color:rgb(108, 173, 252);*/
   font-family: 'Poppins', sans-serif; 
   font-size: 30px;
 }
@@ -38,17 +39,19 @@
   padding: 14px 16px;
   background-color: inherit;
   font-family: 'Poppins';
-  margin: 0;
+  margin-right:70px;
 }
 
 
 .navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
   background-color: rgb(0, 16, 121);
+  
 }
 
 .dropdown-content {
   display: none;
-  background-color: aquamarine;
+  background-color: #AAC4FF;
+  color:(255,255,255);
   min-width: 160px;
   overflow:auto;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);

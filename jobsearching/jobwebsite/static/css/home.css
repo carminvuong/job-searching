@@ -9,6 +9,11 @@
   justify-content: center;
 }
 
+.d1 {
+  height:400px;
+
+}
+
 .search-bar {
   width: 100%;
   max-width: 600px;
@@ -16,6 +21,7 @@
   border-radius: 5px;
   display: flex;
   margin: 0 auto;
+  margin-top:250px;
   box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
   align-items: center;
 }
@@ -70,7 +76,7 @@ section .container {
 }
 
 #mission{
-  background-color: #13c4fa;
+  background-color: #C4DFDF;
 }
 
 #mission h2{
@@ -105,6 +111,7 @@ section .container {
 #about .founders .person h3{
   font-size: 25px;
   color: rgb(0, 0, 0);
+  
   text-align: center;
   text-transform: uppercase;
   margin: 10px;
