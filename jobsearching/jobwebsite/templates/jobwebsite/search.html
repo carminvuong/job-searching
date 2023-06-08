@@ -1,5 +1,14 @@
 {% extends "jobwebsite/base.html" %}
-{% load static %}
+{% load static %} 
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block css %} 
+<link href="{% static 'css/search.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
 <html  lang="en-US">
   <head>
