@@ -7,7 +7,6 @@ from bootstrap_datepicker_plus.widgets import (DatePickerInput, DateTimePickerIn
                                                TimePickerInput,
                                                YearPickerInput,
                                                )
-from django.forms import EmailInput, TextInput, PasswordInput
 
 
 class SignupForm(UserCreationForm):
@@ -19,17 +18,11 @@ class SignupForm(UserCreationForm):
     last_name = forms.CharField(max_length=1000, widget=forms.TextInput(
         attrs={'placeholder': 'Last Name', 'style': 'width: 300px;', 'class': 'form-control'}))
     birth_date = forms.DateField(
-        label="Date", widget=DatePickerInput(), initial="2021-12-13")
-    age = forms.IntegerField(widget=forms.TextInput(
-        attrs={'min': 16, 'max': 100, 'value': 18, 'type': 'number', 'style': 'max-width: 5em'}))
-    # password1 = forms.CharField(max_length=1000, widget=forms.PasswordInput(
-    #    attrs={'placeholder': 'Password1', 'style': 'width: 300px;', 'class': 'form-control'}))
-    # password2 = forms.CharField(max_length=1000, widget=forms.PasswordInput(
-    #    attrs={'placeholder': 'Password2', 'style': 'width: 300px;', 'class': 'form-control'}))
+        label="Birthday", widget=DatePickerInput())
 
     class Meta:
         model = User
-        fields = ["email", "username", "first_name", "last_name", "age", "birth_date",
+        fields = ["email", "username", "first_name", "last_name", "birth_date",
                   "password1", "password2"]
 
     def save(self, commit=True):
@@ -37,8 +30,18 @@ class SignupForm(UserCreationForm):
         user.email = self.cleaned_data['email']
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
-        user.age = self.cleaned_data['age']
         user.birth_date = self.cleaned_data['birth_date']
         if commit:
             user.save()
         return user
+
+    def __init__(self, *args, **kwargs):
+        super(SignupForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs = {
+            'class': 'form-control', 'placeholder': 'Username', 'required': 'required', 'style': 'width: 300px;'}
+        self.fields['password1'].widget.attrs = {
+            'class': 'form-control', 'placeholder': 'Password', 'required': 'required', 'style': 'width: 300px;'}
+        self.fields['password2'].widget.attrs = {
+            'class': 'form-control', 'placeholder': 'Confirm Password', 'required': 'required', 'style': 'width: 300px;'}
+        self.fields['birth_date'].widget.attrs = {
+            'required': 'required', 'placeholder': 'YYYY-MM-DD'}

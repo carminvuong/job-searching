@@ -22,10 +22,6 @@ class Job(models.Model):
 class Profile(models.Model):
     # Delete profile when user is deleted
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    email = models.EmailField(default="")
-    username = models.CharField(max_length=3000, default="")
-    first_name = models.CharField(max_length=3000, default="")
-    last_name = models.CharField(max_length=3000, default="")
     age = models.PositiveIntegerField(validators=[MinValueValidator(16), MaxValueValidator(100)],
                                       default=18)
     birthdate = models.DateField(default=date.today())

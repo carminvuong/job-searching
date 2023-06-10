@@ -22,3 +22,8 @@ class UpdateProfile(forms.ModelForm):
         model = Profile
         fields = ['email', 'username', 'first_name',
                   'last_name', 'age', 'birthdate']
+
+
+class JobForm(forms.Form):
+    keywords = forms.CharField(label="keywords")
+    location = forms.CharField(label="location")

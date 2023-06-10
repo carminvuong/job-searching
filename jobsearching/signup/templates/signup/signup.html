@@ -8,16 +8,16 @@
 {% block content %}
 {% bootstrap_javascript jquery='full' %}
 {{form.media}}
-<div class="form">
+<div class="form" style ="margin-left: 40%;margin-right: 38%;">
     <form method="POST" class="form-group">
-        <h1 class="mt-2">
-            Pharos
+        <h1 class="mt-2" style = "font-size: 40px;">
+            Signup
         </h1>
         {% csrf_token %}
         {{form|crispy}}
         <p class="btnwrap"><button type="submit" class="btn btn-success" id ="submitBtn"
-            value="r">Signup</button></p>
+            value="r" style = "background-color: #116A7B">Signup</button></p>
     </form>
-    <p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
+    <p class="text-left">If you already have an account, <a href="/login">login</a> instead.</p>
 </div>
 {% endblock %}

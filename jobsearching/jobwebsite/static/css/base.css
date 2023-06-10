@@ -1,27 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-* {
-  margin: 0;
-  padding: 0;
+
+#navbar {
+  background-color: #2a8ea2bd;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif; 
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 90px;
+  z-index: 10;
+  width: 100%;
   box-sizing: border-box;
 }
 
-.navbar {
-  background-color: #cae0fb;
-  overflow: hidden;
-  font-family: 'Poppins', sans-serif; 
-  justify-content: none;
-  font-size: 30px;
+#navbar img{
+  margin-left: 10px;
+  position: absolute;
+  left: 0;
+ 
 }
 
-.navbar a {
+#navbar a {
   float: left;
-  font-size: 16px;
-  color: rgb(196, 234, 255);
+  font-size: 20px;
+  color: rgb(1, 23, 34);
   text-align: center;
-  /* padding: 14px 16px; */
   text-decoration: none;
   display:block;
+  margin-right: 50px;
+  padding: 14px 16px;
+  transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
 }
 
 .dropdown {
@@ -42,9 +57,8 @@
 }
 
 
-.navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
-  background-color: rgb(0, 16, 121);
-  
+#navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
+  background-color: rgba(0, 16, 121, 0.293);
 }
 
 .dropdown-content {

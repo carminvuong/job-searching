@@ -1,0 +1,28 @@
+{% extends "jobwebsite/base.html" %}
+{% load static %} 
+{% load crispy_forms_tags %}
+
+<head>
+<script type="text/javascript" src="//d5k1a84rm5hwo.cloudfront.net/partnerapi.js"></script>
+<link>
+            http://www.juju.com/jad/000000001x6rzq?impression_id=GVZtkdmUTgmciJW5Scp_tg
+        </link>
+        <onclick>juju_partner(this, '3364');</onclick>
+        <guid ispermalink="false">000000001x6rzq</guid>
+        <a href="http://www.juju.com/job/..." onclick="juju_partner(this, '3364');" > 
+
+</head>
+
+{% block css %} 
+<link href="{% static 'css/home.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="form">
+    <form method="POST" class="search-bar" style="border-radius:50px">
+        {% csrf_token %}
+        {{form|crispy}}
+        <button type="submit"><img src="{% static '/images/Search.png' %}"></button>
+    </form>
+</div>
+{% endblock %}

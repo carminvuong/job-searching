@@ -23,13 +23,15 @@
   <body>
     <header>
       <nav>
-          <div class="navbar" style="margin:0px">
-            <img src="{% static '/images/Logo.jpg' %}" width="85" height="85" alt="bamshazam">
+          <div id="navbar">
+            <img src="{% static '/images/Logo.jpg' %}" width="80" height="80" alt="bamshazam">
             <a href="/home/">Home</a>
             <a href="/profile/">Profile</a>
-            <a href="/search/">Search</a>
+            <a href="/search/">Advanced Search</a>
             <a href="/search/">Support</a>
+            {% if user.is_authenticated %}
             <a href="/logout/">Logout</a>
+            {% endif %}
           </div>
      </nav>
   </header>
