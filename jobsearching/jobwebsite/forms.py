@@ -9,6 +9,27 @@ class UserForm(forms.ModelForm):
         fields = ('email', 'username', 'first_name',
                   'last_name')
 
+class UpdateUserForm(forms.ModelForm):
+    username = forms.CharField(max_length=100,
+                               required=True,
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(required=True,
+                             widget=forms.TextInput(attrs={'class': 'form-control'}))
+    first_name = forms.CharField(max_length=100,
+                                 required=True,
+                                 widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name = forms.CharField(max_length=100,
+                                required=True,
+                                widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(max_length=100,
+                                 required=True,
+                                 widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    confirm_password = forms.CharField(max_length=100,
+                                       required=True,
+                                       widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    class Meta:
+        model = User
+        fields = ['username', 'email']
 
 class UpdateProfile(forms.ModelForm):
     email = forms.EmailField(required=False)

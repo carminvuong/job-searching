@@ -1,10 +1,11 @@
 {% extends "jobwebsite/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-
+<div class="shadow-lg mb-5 bg-white rounded" style = "margin-left: 30%; margin-right: 28%;margin-top: 8%; 
+padding-left: 5%; padding-right: 5%; padding-top: 2.5%; padding-bottom: 2.5%;">
 <form method="post" class="form">
     <h1 class="mt-2"> 
-        Log Into Your Account
+        Login
      </h1>
     {% csrf_token %}
     {{login_form|crispy}}
@@ -13,5 +14,6 @@
     value="r">Login</button>
     <p class="account-text">Don't have an account? Create one <a href="/signup/">here</a></p>
 </form>
+</div>
 <br>
 {% endblock %}

@@ -51,15 +51,36 @@
                   </button>
               </div>
               <div class="modal-body">
-                  <form method="post">
-                        {% csrf_token %}
-                        {{ profile_form|crispy }}
+                  <form method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="form-row">
+						<div class="col-md-5">
+							<div class="form-group">
+								<label class="small mb-1">Username:</label>
+									{{ user_form.username }}
+								<label class="small mb-1">Email:</label>
+									{{ user_form.email }}
+								<label class="small mb-1">First Name:</label>
+									{{ user_form.first_name }}
+								<label class="small mb-1">Last Name:</label>
+									{{ user_form.last_name }}
+								<!-- <label class="small mb-1">Age:</label>
+									{{ user_form.age }} -->
+							</div>
+							<!-- <div class="form-group">
+								<a href="#">Change Password</a>
+								<hr>
+							</div> -->
+							
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">Save changes</button>
+						<button type="reset" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					</div>
+					</form>
               </div>
-                <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary">Save changes</button>
-                  </form> 
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
+                
           </div>
         </div>
   </div>
