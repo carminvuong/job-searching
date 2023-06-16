@@ -1,0 +1,41 @@
+{% extends "jobwebsite/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Job Finder
+{% endblock %}
+
+
+{% block content %}
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="{% static 'webapp/gooba.css' %}"/>
+  </head>
+  
+      <div class="jobs">
+        {% for i in jobs %}
+          <h1 font-size="100px"class="mt-2" id="title"> {{i.title}}</h1>
+          <h3 font-size="100px"class="mt-2" id="company"> {{i.company}}</h1>
+          <h3 font-size="100px"class="mt-2" id="salary"> {{i.salary}}</h1>
+          <h2 font-size="100px"class="mt-2" id="location"> {{i.location}}</h1>
+          <h2 font-size="100px"class="mt-2" id="description"> {{i.description}}</h1>
+          <h2 font-size="100px"class="mt-2" id="url"> <a href="{{i.url}}">Click here for more info!</a></h3>
+          <form method="POST">
+              {% csrf_token %}
+          <button type="submit"  name="favorite" value={{i.id}} class="favorite">Favorite</button>
+          </form>
+          
+          <form method="POST">
+            {% csrf_token %}
+        <button type="submit"  name="moreInfo" value={{i.id}} class="moreInfo">See More</button>
+        </form>
+          <hr>
+          <br>
+        {% endfor %}
+      </div>
+      {% endblock %}
+</html>
+
+
+

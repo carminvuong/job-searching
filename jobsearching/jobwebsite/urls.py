@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.home),
     path('home/', views.home),
     path('profile/', views.profile),
-    path('search/', views.search),
+    path('support/', views.support),
+    path('findJob/', views.findJob)
 
 ]

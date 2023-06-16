@@ -1,9 +1,13 @@
 {% extends "jobwebsite/base.html" %}
 {% load static %} 
 
-	{% block content %}
+{% block title %}
+Profile
+{% endblock %}
 
-	{% load crispy_forms_tags %}  
+{% block content %}
+
+{% load crispy_forms_tags %}  
 
 	<!--User-->
 	<br><br>
@@ -54,11 +58,11 @@
                   <form method="post" enctype="multipart/form-data">
 					{% csrf_token %}
 					<div class="form-row">
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label class="small mb-1">Username:</label>
 									{{ user_form.username }}
-								<label class="small mb-1">Email:</label>
+								<label for="small mb-1">Email:</label>
 									{{ user_form.email }}
 								<label class="small mb-1">First Name:</label>
 									{{ user_form.first_name }}

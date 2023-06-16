@@ -1,0 +1,17 @@
+{% extends 'jobwebsite/base.html' %}
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'webapp/moreInfo.css' %}"/>
+
+<h1> {{job.title}} </h1>
+<h2> {{job.salary}} </h2>
+
+<h1> {{job.company}} </h1>
+
+<h1> {{job.location}} </h1>
+
+ <h1> {{job.fullDescription}}</h1>
+ 
+
+{% endblock %}
