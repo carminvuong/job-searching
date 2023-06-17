@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from time import sleep
 import lxml
-import cchardet
 
 
 url = 'https://www.careerjet.com/jobad/us827927d1693748b79497a7207bcc7230'
