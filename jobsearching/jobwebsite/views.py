@@ -104,8 +104,8 @@ def findJob(request):
                     job.location = i["locations"]
                     job.url = i["url"]
                     descriptions = getSeeMore(job.url)
-                    print(descriptions)
-                    job.description = descriptions[0]
+                    if descriptions:
+                        job.description = descriptions[0]
                     count += 1
                     all_jobs.append(job)
                     job.save()
