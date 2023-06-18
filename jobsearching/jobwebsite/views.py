@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from . models import Job, Profile
-from careerjet_api_client import CareerjetAPIClient
+from careerjet_api import CareerjetAPIClient
 from .forms import UserForm, UpdateProfile, JobForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
