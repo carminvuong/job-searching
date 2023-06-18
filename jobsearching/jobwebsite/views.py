@@ -106,7 +106,6 @@ def findJob(request):
                     descriptions = getSeeMore(job.url)
                     print(descriptions)
                     job.description = descriptions[0]
-                    print("JOB DESCRIPTION: "+job.description + "count :"+str(count))
                     count += 1
                     all_jobs.append(job)
                     job.save()

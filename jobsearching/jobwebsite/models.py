@@ -30,11 +30,14 @@ class Profile(models.Model):
     favCount = models.IntegerField(default=0)
 
     def add_fav(self, fav):
+        print(fav)
         dictFav = json.loads(self.favorites)
+        print(dictFav)
         dictFav.update(fav)
         self.favorites = json.dumps(dictFav)
+        print("self.favorites: "+self.favorites)
         self.favCount = self.favCount + 1
-        
+
     def get_fave(self):
         return json.loads(self.favorites)
     def save(self, *args, **kwargs):
