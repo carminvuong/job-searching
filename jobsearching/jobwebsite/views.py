@@ -8,6 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from .webscraper import getDescription, getSeeMore
 from django.template import *
+import json
 
 
 # Create your views here.
@@ -77,6 +78,10 @@ def findJob(request):
                     'url': 'https://www.netflix.com/browse',
                     'user_agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0'
                 })
+                json_object = json.dumps(result_json, indent=4)
+                with open("jobs.json", "w") as outfile:
+                    outfile.write(json_object)
+                    outfile.close()
                 jobs = result_json["jobs"]
                 print(jobs)
                 all_jobs = []
@@ -93,9 +98,9 @@ def findJob(request):
                     job.location = i["locations"]
                     job.url = i["url"]
                     descriptions = getSeeMore(job.url)
-                    # job.description = descriptions[count]
-                    job.description = "poopy head"
-                    print("JOB DESCRIPTION: "+descriptions[3])
+                    job.description = descriptions[0]
+                    # job.description = "poopy head"
+                    print("JOB DESCRIPTION: "+job.description + "count :"+str(count))
                     count += 1
 
                     all_jobs.append(job)
