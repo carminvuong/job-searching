@@ -8,6 +8,10 @@ To run the website, please use pip install:
 4) django-bootstrap-datepicker-plus
 5) django-bootstrap4
 6) Pillow
+7) careerjet_api
+8) bs4
+9) selenium
+10) lxml
 
 To run the server:
 1) Change directory to job-searching/jobsearching
