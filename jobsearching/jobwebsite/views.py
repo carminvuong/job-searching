@@ -11,6 +11,7 @@ from django.template import *
 import json
 
 
+
 # Create your views here.
 
 fav = []
@@ -35,8 +36,11 @@ def profile(request):
             user_form = UserForm(instance=request.user)
             profile_form = UpdateProfile(instance=request.user.profile)
             favorites = user.profile.get_fave()
+            favs = list(favorites.values())
+            for i in range(0,len(favs)):
+                favs[i] = globals()[favs[i]]
 
-        return render(request=request, template_name=r"jobwebsite\profile.html", context={"user": request.user, 'user_form': user_form, 'profile_form': profile_form})
+        return render(request=request, template_name=r"jobwebsite\profile.html", context={"user": request.user, 'user_form': user_form, 'profile_form': profile_form, "favs":favs})
     else:
         return HttpResponseRedirect("/login/")
 
@@ -48,10 +52,12 @@ def findJob(request):
         if request.method == "POST":
             form = JobForm(request.POST)
             if request.POST.get("favorite"):
+                profile = request.user.profile
                 object_id = request.POST["favorite"]
                 job_object = Job.objects.get(id=object_id)
                 job_object.favorite = True
-                request.user.profile.add_fav(job_object)
+                print("choco")
+                profile.add_fav({profile.favCount:str(job_object)})
                 return HttpResponseRedirect('/profile/')
             if request.POST.get("moreInfo"):
                 object_id = request.POST["moreInfo"]
@@ -98,11 +104,10 @@ def findJob(request):
                     job.location = i["locations"]
                     job.url = i["url"]
                     descriptions = getSeeMore(job.url)
+                    print(descriptions)
                     job.description = descriptions[0]
-                    # job.description = "poopy head"
                     print("JOB DESCRIPTION: "+job.description + "count :"+str(count))
                     count += 1
-
                     all_jobs.append(job)
                     job.save()
                 return render(request, 'jobwebsite/results.html/', {"jobs": all_jobs,  "a": kw})

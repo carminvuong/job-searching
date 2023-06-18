@@ -27,12 +27,16 @@ class Profile(models.Model):
                                       default=18)
     birthdate = models.DateField(default=date.today())
     favorites = models.CharField(max_length = 1000000,default="{}")
+    favCount = models.IntegerField(default=0)
 
     def add_fav(self, fav):
-        self.favorites = json.dumps(fav)
+        dictFav = json.loads(self.favorites)
+        dictFav.update(fav)
+        self.favorites = json.dumps(dictFav)
+        self.favCount = self.favCount + 1
+        
     def get_fave(self):
         return json.loads(self.favorites)
-
     def save(self, *args, **kwargs):
         super().save()
 

@@ -38,6 +38,15 @@ Profile
 		    	<div class="row">
 		    		<div class="col-6 my-auto">
 		    			<h2 class="font-weight-bold pt-4">Favorites</h2>
+						{% for i in favs %}
+						<h1 font-size="100px"class="mt-2" id="title"> {{i.title}}</h1>
+						<h3 font-size="100px"class="mt-2" id="company"> {{i.company}}</h1>
+						<h3 font-size="100px"class="mt-2" id="salary"> {{i.salary}}</h1>
+						<h2 font-size="100px"class="mt-2" id="location"> {{i.location}}</h1>
+						<h2 font-size="100px"class="mt-2" id="description"> {{i.description}}</h1>
+						<hr>
+						<br>
+						{% endfor %}
 		    		</div>
 		    	</div>
 		      	<br>
