@@ -9,8 +9,9 @@ url = 'https://www.careerjet.com/jobad/us827927d1693748b79497a7207bcc7230'
 
 
 def getSeeMore(url):
-    driver = webdriver.Chrome()
-
+    options = webdriver.ChromeOptions()
+    options.add_argument('headless')
+    driver = webdriver.Chrome(options=options)
     driver.get(url)
     driver.execute_script("window.stop();")
     html = BeautifulSoup(driver.page_source, 'lxml')
