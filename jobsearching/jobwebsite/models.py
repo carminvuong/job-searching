@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import date
 from PIL import Image
+import json
 
 
 class Job(models.Model):
@@ -25,6 +26,12 @@ class Profile(models.Model):
     age = models.PositiveIntegerField(validators=[MinValueValidator(16), MaxValueValidator(100)],
                                       default=18)
     birthdate = models.DateField(default=date.today())
+    favorites = models.CharField(max_length = 1000000,default="{}")
+
+    def add_fav(self, fav):
+        self.favorites = json.dumps(fav)
+    def get_fave(self):
+        return json.loads(self.favorites)
 
     def save(self, *args, **kwargs):
         super().save()

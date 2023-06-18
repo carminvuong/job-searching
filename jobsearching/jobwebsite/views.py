@@ -25,15 +25,16 @@ def profile(request):
         if request.method == 'POST':
             user_form = UserForm(request.POST, instance=request.user)
             profile_form = UpdateProfile(request.POST, instance=request.user.profile)
-
             if profile_form.is_valid() and user_form.is_valid():
                 user_form.save()
                 profile_form.save()
                 messages.success(request, 'Your profile is updated successfully')
                 # return redirect(to='jobwebsite\profile.html')
         else:
+            user = request.user
             user_form = UserForm(instance=request.user)
             profile_form = UpdateProfile(instance=request.user.profile)
+            favorites = user.profile.get_fave()
 
         return render(request=request, template_name=r"jobwebsite\profile.html", context={"user": request.user, 'user_form': user_form, 'profile_form': profile_form})
     else:
@@ -47,12 +48,11 @@ def findJob(request):
         if request.method == "POST":
             form = JobForm(request.POST)
             if request.POST.get("favorite"):
-
                 object_id = request.POST["favorite"]
                 job_object = Job.objects.get(id=object_id)
                 job_object.favorite = True
-                fav.append(job_object)
-                return HttpResponseRedirect('/favorites/')
+                request.user.profile.add_fav(job_object)
+                return HttpResponseRedirect('/profile/')
             if request.POST.get("moreInfo"):
                 object_id = request.POST["moreInfo"]
                 job_object = Job.objects.get(id=object_id)
