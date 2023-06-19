@@ -12,6 +12,7 @@ To run the website, please use pip install:
 8) bs4
 9) selenium
 10) lxml
+11) django_forms_bootstrap
 
 To run the server:
 1) Change directory to job-searching/jobsearching
