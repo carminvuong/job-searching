@@ -15,7 +15,7 @@ def getSeeMore(url):
     driver.get(url)
     driver.execute_script("window.stop();")
     html = BeautifulSoup(driver.page_source, 'lxml')
-    words = html.find_all('div', class_='desc')
+    words = html.find_all('section', class_='content')
     lst = []
     for i in words:
         lst.append(i.get_text(strip=True))
@@ -24,7 +24,6 @@ def getSeeMore(url):
 
 def getDescription(url):
     driver = webdriver.Chrome()
-
     driver.get(url)
     driver.execute_script("window.stop();")
     html = BeautifulSoup(driver.page_source, 'lxml')

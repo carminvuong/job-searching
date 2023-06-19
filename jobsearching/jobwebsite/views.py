@@ -15,7 +15,6 @@ import re
 def whitespace_only(file):
     content = open(file, 'r').read()
     if re.search(r'^\s*$', content):
-        content.close()
         return True
     else:
         return False
@@ -69,7 +68,6 @@ def findJob(request):
                 object_id = request.POST["favorite"]
                 job_object = Job.objects.get(id=object_id)
                 job_object.favorite = True
-                print("choco")
                 profile.add_fav({profile.favCount:str(job_object)})
                 return HttpResponseRedirect('/profile/')
             if request.POST.get("moreInfo"):
@@ -112,44 +110,39 @@ def findJob(request):
                 json_object = json.dumps(result_json, indent=4)
                 #If file is not empty
                 if not(whitespace_only("jobs.json")):
-                    print('TESTING')
                     f = open("jobs.json")
                     #Changes string to json
                     data = json.load(f)
                     f.close()
-    
-                    #i is keys
-                    for i in data:
-                        #Checks if keyword and location are same as inputted kw and lc
-                        i = i.split(" ")
-                        if  i[0] == lc and i[1]== kw:
-                            all_jobs = []
-                            dictionary = data[f"{lc} {kw}"]
-                            #foundJobs is list of dictionaries (jobs)
-                            foundJobs = dictionary["jobs"]
-                            #Creates Job object with info from dictionaries; n is the dict
-                            for n in foundJobs: 
-                                job = Job()
-                                job.user = request.user 
-                                job.title = n["title"]
-                                job.company = n["company"]
-                                job.salary = n["salary"]
-                                job.location = n["locations"]
-                                job.url = n["url"]
-                                job.description = n["description"]
-                                all_jobs.append(job)
-                                job.save()
-                            return render(request,'jobwebsite/results.html/',{"jobs":all_jobs,"kw":kw,"lc":lc})
-                        #Writing api returned json into file
-                        #If different inputs then write a description for each job
-                        else:
-                            for j in data[" ".join(i)]["jobs"]:
-                                description = getSeeMore(j["url"])
-                                if description:
-                                    j["description"] = description[0]
-                                else:
-                                    j["description"] = ""
-                    data[f"{lc} {kw}"] = result_json
+                    #Checks if keyword and location are same as inputted kw and lc
+                    if f"{lc} {kw}" in data.keys():
+                        all_jobs = []
+                        dictionary = data[f"{lc} {kw}"]
+                        #foundJobs is list of dictionaries (jobs)
+                        foundJobs = dictionary["jobs"]
+                        #Creates Job object with info from dictionaries; n is the dict
+                        for n in foundJobs: 
+                            job = Job()
+                            job.user = request.user 
+                            job.title = n["title"]
+                            job.company = n["company"]
+                            job.salary = n["salary"]
+                            job.location = n["locations"]
+                            job.url = n["url"]
+                            job.description = n["description"]
+                            all_jobs.append(job)
+                            job.save()
+                        return render(request,'jobwebsite/results.html/',{"jobs":all_jobs,"kw":kw,"lc":lc})
+                    #Writing api returned json into file
+                    #If different inputs then write a description for each job
+                    else:
+                        data[f"{lc} {kw}"] = result_json
+                        for j in data[f"{lc} {kw}"]["jobs"]:
+                            description = getSeeMore(j["url"])
+                            if description:
+                                j["description"] = description[0]
+                            else:
+                                j["description"] = ""
                     jobs = data[f"{lc} {kw}"]["jobs"]
                     all_jobs = []
                     user = request.user 
@@ -161,10 +154,10 @@ def findJob(request):
                         job.salary = i["salary"]
                         job.location = i["locations"]
                         job.url = i["url"]
+                        print(job.url)
                         job.description = i["description"]
                         all_jobs.append(job)
                         job.save()
-                    print(data)
                     with open("jobs.json", "w") as outfile:
                         outfile.write(json.dumps(data,indent=4))
                         outfile.close()
@@ -188,6 +181,7 @@ def findJob(request):
                         if not(description):
                             description = [""]
                         job.description = description[0]
+                        print(job.description)
                         all_jobs.append(job)
                         job.save()
                     with open("jobs.json", "w") as outfile:

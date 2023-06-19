@@ -30,14 +30,13 @@ Results
           <h3 font-size="100px" class="mt-2" id="salary" style="color:green"> {{i.salary}}</h3>
           <h3 font-size="100px" class="mt-2" id="location"> <i class="fas fa-map-marker-alt fa-1x" style = "max-width: 50%;
             max-height: 50%;"></i> {{i.location}}</h3>
-          <!-- <h2 font-size="100px"class="mt-2" id="description"> {{i.description}}</h1> -->
-          <!-- <h3 font-size="100px"class="mt-2" id="url"> <a href="{{i.url}}">Click here for more info!</a></h3> -->
+          <h2 font-size="100px"class="mt-2" id="description"> {{i.description}}</h1>
+          <h3 font-size="100px"class="mt-2" id="url"> <a href="{{i.url}}">Click here for more info!</a></h3>
 
-        <form action="{{i.url}}">
-          {% csrf_token %} 
-          <button type="submit"  name="moreInfo" class="btn btn-outline-info mt-2">See More</button>
+        <form method="POST">
+          {% csrf_token %}
+        <button type="submit"  name="moreInfo" value={{i.id}} class="moreInfo">See More</button>
         </form>
-          
           <br>
         </div>
       {% endfor %}
