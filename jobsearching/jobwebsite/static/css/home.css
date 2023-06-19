@@ -4,14 +4,11 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-position: center;
-  background-size: cover;
-  background-color: #C2DEDC;
 }
 
 .search h1 {
   font-size: 80px;
-  color: #116A7B;
+  color: #ffffff;
   text-align: center;
   margin: 0 0 10px 30px;
   
@@ -53,13 +50,13 @@
   margin-right: 20px;
   border-radius: 90px;
   padding: 5px;
-  background: #09625c;
+  background: purple;   
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .SearchButton button:hover {
-  background: #388e9f;
+  background: #562f6e;
 }
 
 .form {
@@ -88,8 +85,8 @@ section .container {
 }
 
 #mission{
-  background-color: #116A7B;
-}
+  /* ackground-color: #116A7B;
+ */}
 
 #mission h2{
   font-size: 50px;
@@ -109,12 +106,12 @@ section .container {
 }
 
 #about{
-  background-color: #C2DEDC;
-}
+  /* ackground-color: #C2DEDC;
+ */}
 
 #about h2{
   font-size: 50px;
-  color: #0d505d;
+  color: white;
   text-align: center;
   text-transform: uppercase;
   padding: 5%;
