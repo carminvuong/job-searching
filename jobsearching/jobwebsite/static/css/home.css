@@ -21,33 +21,6 @@
   margin-right: 15rem;
 }
 
-/* .search-bar {
-  width: 100%;
-  max-width: 600px; */
-  /* background: #fff; */
-  /* border-radius: 5px; */
-  /* display: flex;
-  margin: 0 auto; */
-  /* margin-top: 80px; */
-  /* box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
-  align-items: center;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  font-size: 2rem;
-} */
-
-/* .search-bar input {
-  align-content: center;
-  width: 100%;
-  border: none;
-  padding: 24px 20px;
-  font-size: 20px;
-  color: #333;
-  background: transparent;
-  outline: none;
-  flex: 1;
-} */
-
 ::placeholder {
   color: #aaa;
 }

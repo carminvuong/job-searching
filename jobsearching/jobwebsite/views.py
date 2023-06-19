@@ -10,18 +10,9 @@ from .webscraper import getDescription, getSeeMore
 from django.template import *
 import json
 import os
-import re
 
-def whitespace_only(file):
-    content = open(file, 'r').read()
-    if re.search(r'^\s*$', content):
-        return True
-    else:
-        return False
-
-# Create your views here.
-
-fav = []
+def file_is_empty(path):
+    return os.stat(path).st_size == 0
 
 def home(request):
     form = JobForm()
@@ -42,7 +33,7 @@ def profile(request):
                 user_form.save()
                 profile_form.save()
                 messages.success(request, 'Your profile is updated successfully')
-                return redirect(to='jobwebsite\profile.html')
+                return redirect(to='/profile/', context={"user": request.user, 'user_form': user_form, 'profile_form': profile_form,"favs":favs})
         else:
             user = request.user
             user_form = UserForm(instance=request.user)
@@ -52,7 +43,7 @@ def profile(request):
             for i in range(0,len(favs)):
                 favs[i] = globals()[favs[i]]
             
-        return render(request=request, template_name=r"jobwebsite\profile.html", context={"user": request.user, 'user_form': user_form, 'profile_form': profile_form,"favs":favs})
+        return render(request=request, template_name=r"jobwebsite/profile.html", context={"user": request.user, 'user_form': user_form, 'profile_form': profile_form,"favs":favs})
     else:
         return HttpResponseRedirect("/login/")
 
@@ -109,7 +100,7 @@ def findJob(request):
                 #Changes json to string
                 json_object = json.dumps(result_json, indent=4)
                 #If file is not empty
-                if not(whitespace_only("jobs.json")):
+                if not(file_is_empty("jobs.json")):
                     f = open("jobs.json")
                     #Changes string to json
                     data = json.load(f)
@@ -132,11 +123,12 @@ def findJob(request):
                             job.description = n["description"]
                             all_jobs.append(job)
                             job.save()
-                        return render(request,'jobwebsite/results.html/',{"jobs":all_jobs,"kw":kw,"lc":lc})
+                        return render(request,'jobwebsite/results.html/',{"jobs":all_jobs,"kw":" ".join(kw.split("_")),"lc":" ".join(lc.split("_"))})
                     #Writing api returned json into file
                     #If different inputs then write a description for each job
                     else:
                         data[f"{lc} {kw}"] = result_json
+                        print(result_json)
                         for j in data[f"{lc} {kw}"]["jobs"]:
                             description = getSeeMore(j["url"])
                             if description:
@@ -154,7 +146,6 @@ def findJob(request):
                         job.salary = i["salary"]
                         job.location = i["locations"]
                         job.url = i["url"]
-                        print(job.url)
                         job.description = i["description"]
                         all_jobs.append(job)
                         job.save()
@@ -181,7 +172,6 @@ def findJob(request):
                         if not(description):
                             description = [""]
                         job.description = description[0]
-                        print(job.description)
                         all_jobs.append(job)
                         job.save()
                     with open("jobs.json", "w") as outfile:

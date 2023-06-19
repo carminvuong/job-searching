@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'bootstrap_datepicker_plus',
     'bootstrap4',
+    'django_forms_bootstrap'
     # 'wagtail.contrib.forms',
     # 'wagtail.contrib.redirects',
     # 'wagtail.embeds',

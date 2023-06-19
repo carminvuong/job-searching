@@ -6,6 +6,9 @@
 Results
 {% endblock %}
 
+{% block css %} 
+<link href="{% static 'css/results.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
 {% csrf_token %} 
@@ -18,24 +21,47 @@ Results
            <div class="d-flex justify-content-between">
               <h1 font-size="100px" class="mt-2" id="title"> {{i.title}}</h1>
               <form method="POST">
-                {% csrf_token %} 
-                <div class="form-check">
+                {% csrf_token %}
+                <label for="id-of-input" class="custom-checkbox">
+                  <input type="checkbox" id="id-of-input" name="favorite" value={{i.id}}>
+                  <i class="glyphicon glyphicon-star-empty"></i>
+                  <i class="glyphicon glyphicon-star"></i>
+                  <span>Favoasdasdriasdast</span>
+                </label> 
+                <!-- <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="favorite" name="favorite" value={{i.id}}>
                   <label class="form-check-label">Favorite</label>
-                </div>
+                </div> -->
               </form>
               
             </div>
-          <h2 font-size="100px" class="mt-2 lead" id="company" style = "font-size:1.6em"> {{i.company}}</h2>
+          <h2 font-size="100px" class="mt-2 lead" id="company" style = "font-size:1.9em"> {{i.company}}</h2>
           <h3 font-size="100px" class="mt-2" id="salary" style="color:green"> {{i.salary}}</h3>
-          <h3 font-size="100px" class="mt-2" id="location"> <i class="fas fa-map-marker-alt fa-1x" style = "max-width: 50%;
+          <h3 font-size="100px" class="mt-2 lead " id="location" style = "font-size:1.5em"> <i class="fas fa-map-marker-alt fa-1x" style = "max-width: 50%;
             max-height: 50%;"></i> {{i.location}}</h3>
-          <h2 font-size="100px"class="mt-2" id="description"> {{i.description}}</h1>
-          <h3 font-size="100px"class="mt-2" id="url"> <a href="{{i.url}}">Click here for more info!</a></h3>
+          <!-- <h2 font-size="100px"class="mt-2" id="description"> {{i.description}}</h2> -->
+          <h3 font-size="100px"class="mt-2 lead" id="url" style = "font-size:1.6em;color:black"> <a href="{{i.url}}">Click here for more info!</a></h3>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#descriptionModal"> View Description </button>
+
+          <div class="modal fade" id="descriptionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Description</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  {{i.description}}
+                </div>
+              </div>
+            </div>
+         </div>
 
         <form method="POST">
           {% csrf_token %}
-        <button type="submit"  name="moreInfo" value={{i.id}} class="moreInfo">See More</button>
+        <button type="submit"  name="moreInfo" value={{i.id}} class="moreInfo btn btn-outline-info mt-2">See More</button>
         </form>
           <br>
         </div>
