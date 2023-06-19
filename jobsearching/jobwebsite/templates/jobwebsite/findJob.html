@@ -3,66 +3,30 @@
 {% load static %}
 
 {% block title %}
-Advanced Search
+Search
 {% endblock %}
 
 {% block content %}
-<!-- <form>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="inputEmail4">Email</label>
-      <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-    </div>
-    <div class="form-group col-md-6">
-      <label for="inputPassword4">Password</label>
-      <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="inputAddress">Address</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-  </div>
-  <div class="form-group">
-    <label for="inputAddress2">Address 2</label>
-    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-  </div>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="inputCity">City</label>
-      <input type="text" class="form-control" id="inputCity">
-    </div>
-    <div class="form-group col-md-4">
-      <label for="inputState">State</label>
-      <select id="inputState" class="form-control">
-        <option selected>Choose...</option>
-        <option>...</option>
-      </select>
-    </div>
-    <div class="form-group col-md-2">
-      <label for="inputZip">Zip</label>
-      <input type="text" class="form-control" id="inputZip">
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="gridCheck">
-      <label class="form-check-label" for="gridCheck">
-        Check me out
-      </label>
-    </div>
-  </div>
-  <button type="submit" class="btn btn-primary">Sign in</button>
-</form> -->
-
-
-  <div class="container">
-    <div class="form">
-      <form method="POST" class="form-group">
+<div class="shadow-lg bg-white rounded mt-5 w-50 mx-auto">
+  <!--Section heading-->
+  <h1 class="h1-responsive font-weight-bold text-center mt-5 pt-4">Search</h1>
+  <!--Section description-->
+  <p class="text-center w-responsive mx-auto mb-2 px-4">Enter in Keywords (e.g. "Software Engineer") and/or Location (e.g. "New York, NY") to find jobs that match your criteria.</p>
+  <div class="p-4">
+    <form method="POST">
+      <div class="form-row" style="display: flex; justify-content: space-around;">
         {% csrf_token %}
-        {{form|crispy}}
-        <p class="btnwrap"><button type="submit" class="btn btn-success"  id ="submitBtn"
-          value="r">Find Job</button></p>
-      </form>
-    </div>
+        <div class="form-group col-md-4">
+          <label for="keywords">Keywords</label>
+          {{form.keywords}}
+        </div>
+        <div class="form-group col-md-4">
+          <label for="location">Location</label>
+          {{form.location}}
+        </div>  
+      </div>
+      <div class="text-center text-md-left btnwrap my-1 p-4"><button type="submit" class="btn btn-primary"  id ="submitBtn" value="r">Find Job</button></div>
+    </form>
   </div>
+</div>
 {% endblock %}

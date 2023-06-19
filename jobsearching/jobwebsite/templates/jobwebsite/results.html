@@ -3,38 +3,46 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-Job Finder
+Results
 {% endblock %}
 
 
 {% block content %}
-<html lang="en">
-  <head>
-    <link rel="stylesheet" href="{% static 'webapp/gooba.css' %}"/>
-  </head>
-  
-      <div class="jobs">
-        {% for i in jobs %}
-          <h1 font-size="100px"class="mt-2" id="title"> {{i.title}}</h1>
-          <h3 font-size="100px"class="mt-2" id="company"> {{i.company}}</h1>
-          <h3 font-size="100px"class="mt-2" id="salary"> {{i.salary}}</h1>
-          <h2 font-size="100px"class="mt-2" id="location"> {{i.location}}</h1>
-          <h2 font-size="100px"class="mt-2" id="description"> {{i.description}}</h1>
-          <h2 font-size="100px"class="mt-2" id="url"> <a href="{{i.url}}">Click here for more info!</a></h3>
-          <form method="POST">
-              {% csrf_token %}
-          <button type="submit"  name="favorite" value={{i.id}} class="favorite">Favorite</button>
-          </form>
-          
-          <form method="POST">
-            {% csrf_token %}
-        <button type="submit"  name="moreInfo" value={{i.id}} class="moreInfo">See More</button>
+{% csrf_token %} 
+  <h1 class="h1-responsive display-4 font-weight-bold text-center mt-5 pt-4 text-uppercase">{{kw}} Positions in {{lc}}</h1>
+  <br>
+
+  {% for i in jobs %}
+      <div class="shadow-lg mb-5 bg-white rounded" style = "margin-left: 10%; margin-right: 10%; margin-top: 4%; 
+      padding-left: 5%; padding-right: 5%; padding-top: 2.5%; padding-bottom: 2.5%;">
+           <div class="d-flex justify-content-between">
+              <h1 font-size="100px" class="mt-2" id="title"> {{i.title}}</h1>
+              <form method="POST">
+                {% csrf_token %} 
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="favorite" name="favorite" value={{i.id}}>
+                  <label class="form-check-label">Favorite</label>
+                </div>
+              </form>
+              
+            </div>
+          <h2 font-size="100px" class="mt-2 lead" id="company" style = "font-size:1.6em"> {{i.company}}</h2>
+          <h3 font-size="100px" class="mt-2" id="salary" style="color:green"> {{i.salary}}</h3>
+          <h3 font-size="100px" class="mt-2" id="location"> <i class="fas fa-map-marker-alt fa-1x" style = "max-width: 50%;
+            max-height: 50%;"></i> {{i.location}}</h3>
+          <!-- <h2 font-size="100px"class="mt-2" id="description"> {{i.description}}</h1> -->
+          <!-- <h3 font-size="100px"class="mt-2" id="url"> <a href="{{i.url}}">Click here for more info!</a></h3> -->
+
+        <form action="{{i.url}}">
+          {% csrf_token %} 
+          <button type="submit"  name="moreInfo" class="btn btn-outline-info mt-2">See More</button>
         </form>
-          <hr>
+          
           <br>
-        {% endfor %}
-      </div>
-      {% endblock %}
+        </div>
+      {% endfor %}
+      
+  {% endblock %}
 </html>
 
 

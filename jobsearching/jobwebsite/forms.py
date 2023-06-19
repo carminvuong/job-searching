@@ -33,10 +33,10 @@ class UserForm(forms.ModelForm):
 
 class UpdateProfile(forms.ModelForm):
     email = forms.EmailField(required=False, 
-                             widget=forms.TextInput(attrs={'class': 'form-control'}))
-    username = forms.CharField(max_length="1000", required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    first_name = forms.CharField(max_length='1000', required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    last_name = forms.CharField(max_length='1000', required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+                             widget=forms.TextInput(attrs={'class': 'form-control small mb-1'}))
+    username = forms.CharField(max_length="1000", required=False, widget=forms.TextInput(attrs={'class': 'form-control small mb-1'}))
+    first_name = forms.CharField(max_length='1000', required=False, widget=forms.TextInput(attrs={'class': 'form-control small mb-1'}))
+    last_name = forms.CharField(max_length='1000', required=False, widget=forms.TextInput(attrs={'class': 'form-control small mb-1'}))
     age = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     birthdate = forms.DateField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
@@ -47,5 +47,5 @@ class UpdateProfile(forms.ModelForm):
 
 
 class JobForm(forms.Form):
-    keywords = forms.CharField(label="keywords")
-    location = forms.CharField(label="location")
+    keywords = forms.CharField(max_length="1000", required=True, widget=forms.TextInput(attrs={'placeholder': 'Software Engineer', 'style': 'width: 250px;', 'class': 'form-control-lg mb-1'}))
+    location = forms.CharField(max_length="1000", required=True, widget=forms.TextInput(attrs={'placeholder': 'New York', 'style': 'width: 250px;', 'class': 'form-control-lg mb-1'}))
