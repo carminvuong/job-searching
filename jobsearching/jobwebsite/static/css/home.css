@@ -8,7 +8,7 @@
 
 .search h1 {
   font-size: 80px;
-  color: #ffffff;
+  color: #fff;
   text-align: center;
   margin: 0 0 10px 30px;
   
@@ -50,13 +50,13 @@
   margin-right: 20px;
   border-radius: 90px;
   padding: 5px;
-  background: #5e3975;   
+  background: #7568e7;   
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .SearchButton button:hover {
-  background: #442457;
+  background: #5D3FD3;
 }
 
 .form {
@@ -90,7 +90,7 @@ section .container {
 
 #mission h2{
   font-size: 50px;
-  color: white;
+  color: #fff;
   text-align: center;
   font-size: 75px;
   text-transform: uppercase;
@@ -98,11 +98,11 @@ section .container {
 }
 
 #mission .statementBox {
-  border: 5px solid white;
+  border: 5px solid #fff;
   border-radius: 20px;
   padding: 2%;
   font-size:25px;
-  color: white;
+  color: #fff;
 }
 
 #about{
@@ -111,7 +111,7 @@ section .container {
 
 #about h2{
   font-size: 50px;
-  color: white;
+  color: #fff;
   text-align: center;
   text-transform: uppercase;
   padding: 5%;

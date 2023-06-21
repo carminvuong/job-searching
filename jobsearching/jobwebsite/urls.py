@@ -9,4 +9,5 @@ urlpatterns = [
     path('support/', views.support),
     path('findJob/', views.findJob)
 
+
 ]

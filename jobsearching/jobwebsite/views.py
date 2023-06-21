@@ -11,6 +11,7 @@ from django.template import *
 import json
 import os
 from datetime import date
+first = True
 
 def file_is_empty(path):
     return os.stat(path).st_size == 0
@@ -37,21 +38,21 @@ def profile(request):
                 return redirect(to='/profile/', context={"user": request.user, 'user_form': user_form, 'profile_form': profile_form,"favs":favs})
         else:
             user = request.user
+            all_jobs = []
             user_form = UserForm(instance=request.user)
             profile_form = UpdateProfile(instance=request.user.profile)
             favorites = user.profile.get_fave()
             favs = list(favorites.values())
             for i in range(0,len(favs)):
-                favs[i] = globals()[favs[i]]
-            
-        return render(request=request, template_name=r"jobwebsite/profile.html", context={"user": request.user, 'user_form': user_form, 'profile_form': profile_form,"favs":favs})
+                all_jobs.append(Job.objects.get(id=favs[i]))
+        return render(request=request, template_name=r"jobwebsite/profile.html", context={"user": request.user, 'user_form': user_form, 'profile_form': profile_form,"favs":all_jobs})
     else:
         return HttpResponseRedirect("/login/")
 
 def support(request):
     return render(request, "jobwebsite/support.html")
 
-def findJob(request):
+def findJob(request,first=True):
     if request.user.is_authenticated:
         if request.method == "POST":
             form = JobForm(request.POST)
@@ -59,9 +60,11 @@ def findJob(request):
                 profile = request.user.profile
                 object_id = request.POST["favorite"]
                 job_object = Job.objects.get(id=object_id)
-                job_object.favorite = True
-                profile.add_fav({profile.favCount:str(job_object)})
-                return HttpResponseRedirect('/profile/')
+                job_object.favorite = True 
+                profile.add_fav({profile.favCount:job_object.id})
+                print("FAVORITED: "+profile.favorites)
+                request.user.save()
+                profile.save()
             if request.POST.get("moreInfo"):
                 object_id = request.POST["moreInfo"]
                 job_object = Job.objects.get(id=object_id)
@@ -71,11 +74,11 @@ def findJob(request):
                 description = description.replace("</li>", "")
                 description = description.replace("<b>", " ")
                 description = description.replace("</b>", " ")
-                job_object.fullDescription = description
-
+                job_object.description = description
                 return render(request, "jobwebsite/moreInfo.html/", {"job": job_object})
 
             elif form.is_valid():
+                first = False
                 lc = form.cleaned_data["location"].lower()
                 kw = form.cleaned_data["keywords"].lower()
                 cj = CareerjetAPIClient("en_US")
@@ -88,7 +91,6 @@ def findJob(request):
                     'url': 'https://www.moomoo.io',
                     'user_agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0'
                 })
-                result_json2 = result_json           
                 #Checking if location is 2+ words
                 if len(lc.split(" ")) > 1:
                     lst = lc.split(" ")
@@ -121,7 +123,16 @@ def findJob(request):
                             job.salary = n["salary"]
                             job.location = n["locations"]
                             job.url = n["url"]
-                            job.description = n["description"]
+                            description = n["description"]
+                            description = description.replace("<br/>", "")
+                            description = description.replace("<li>", " \n")
+                            description = description.replace("</li>", "")
+                            description = description.replace("<b>", " ")
+                            description = description.replace("</b>", " ")
+                            description = description.replace(".", ". ")
+                            description = description.replace(":", ": ")
+                            description = description.replace(",", ", ")
+                            job.description = description
                             all_jobs.append(job)
                             job.save()
                         return render(request,'jobwebsite/results.html/',{"jobs":all_jobs,"kw":" ".join(kw.split("_")),"lc":" ".join(lc.split("_"))})
@@ -129,7 +140,6 @@ def findJob(request):
                     #If different inputs then write a description for each job
                     else:
                         data[f"{lc} {kw}"] = result_json
-                        print(result_json)
                         for j in data[f"{lc} {kw}"]["jobs"]:
                             description = getSeeMore(j["url"])
                             if description:
@@ -148,7 +158,7 @@ def findJob(request):
                         job.location = i["locations"]
                         job.url = i["url"]
                         job.description = i["description"]
-                        all_jobs.append(job)
+                        # user.profile.add_fav(job)
                         job.save()
                     with open("jobs.json", "w") as outfile:
                         outfile.write(json.dumps(data,indent=4))
@@ -184,3 +194,6 @@ def findJob(request):
         return render(request, 'jobwebsite/findJob.html', {'form': form})
     else:
         return HttpResponseRedirect("/login/")
+    
+
+

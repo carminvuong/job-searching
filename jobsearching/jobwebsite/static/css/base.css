@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+body {
+  background: linear-gradient(0deg, rgba(77, 100, 250, 0.6), rgba(250, 50, 90, 0.6));
+  background-attachment: fixed;
+  background-size: 100%;
+  background-size: cover;
+}
 
 #navbar {
   background-color: #7568e7bd;
