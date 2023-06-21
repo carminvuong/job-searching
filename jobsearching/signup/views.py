@@ -4,6 +4,7 @@ from .forms import SignupForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from bootstrap_datepicker_plus.widgets import DatePickerInput
+from datetime import date
 
 # Create your views here.
 
@@ -13,6 +14,8 @@ def signup(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             user = form.save()
+            user.profile.birthdate = user.birth_date
+            user.profile.age = int((date.today()-user.profile.birthdate).days/365)
             login(request, user)
             messages.success(request, "Registration successful.")
             return HttpResponseRedirect('/login/')

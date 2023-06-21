@@ -10,6 +10,7 @@ from .webscraper import getDescription, getSeeMore
 from django.template import *
 import json
 import os
+from datetime import date
 
 def file_is_empty(path):
     return os.stat(path).st_size == 0
