@@ -12,11 +12,11 @@ from bootstrap_datepicker_plus.widgets import (DatePickerInput, DateTimePickerIn
 class SignupForm(UserCreationForm):
 
     email = forms.EmailField(widget=forms.EmailInput(
-        attrs={'placeholder': 'Email', 'style': 'width: 300px;', 'class': 'form-control'}))
+        attrs={'placeholder': 'Email', 'class': 'form-control'}))
     first_name = forms.CharField(max_length=1000, widget=forms.TextInput(
-        attrs={'placeholder': 'First Name', 'style': 'width: 300px;', 'class': 'form-control'}))
+        attrs={'placeholder': 'First Name', 'class': 'form-control'}))
     last_name = forms.CharField(max_length=1000, widget=forms.TextInput(
-        attrs={'placeholder': 'Last Name', 'style': 'width: 300px;', 'class': 'form-control'}))
+        attrs={'placeholder': 'Last Name', 'class': 'form-control'}))
     birth_date = forms.DateField(
         label="Birthday", widget=DatePickerInput())
 
@@ -38,10 +38,10 @@ class SignupForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
         self.fields['username'].widget.attrs = {
-            'class': 'form-control', 'placeholder': 'Username', 'required': 'required', 'style': 'width: 300px;'}
+            'class': 'form-control', 'placeholder': 'Username', 'required': 'required'}
         self.fields['password1'].widget.attrs = {
-            'class': 'form-control', 'placeholder': 'Password', 'required': 'required', 'style': 'width: 300px;'}
+            'class': 'form-control', 'placeholder': 'Password', 'required': 'required'}
         self.fields['password2'].widget.attrs = {
-            'class': 'form-control', 'placeholder': 'Confirm Password', 'required': 'required', 'style': 'width: 300px;'}
+            'class': 'form-control', 'placeholder': 'Confirm Password', 'required': 'required'}
         self.fields['birth_date'].widget.attrs = {
             'required': 'required', 'placeholder': 'YYYY-MM-DD'}

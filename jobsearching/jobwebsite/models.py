@@ -5,6 +5,9 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import date
 from PIL import Image
 import json
+from django.db.models.signals import post_save
+from django.contrib.auth.models import User
+from django.dispatch import receiver
 
 
 class Job(models.Model):
@@ -46,3 +49,12 @@ class Profile(models.Model):
     def __str__(self):
         # show how we want it to be displayed
         return f'{self.user.username} Profile'
+    
+    @receiver(post_save, sender=User) #add this
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User) #add this
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()

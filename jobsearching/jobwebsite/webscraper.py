@@ -15,18 +15,22 @@ def getSeeMore(url):
     driver.get(url)
     driver.execute_script("window.stop();")
     html = BeautifulSoup(driver.page_source, 'lxml')
-    words1 = html.find_all('div')
     words = html.find_all('section', class_='content')
+    count1 = words.count("<b>")
+    count2 = words.count("</b>")
+    for m in range(0,count1):
+        words.remove("<b>")
+    for j in range(0,count2):
+        words.remove("</b>")
     lst = []
-    print(words1)
     for i in words:
         print(i)
-        #lst.append(i.get_text(strip=True))
-        lst.append(i.get_text())
+        lst.append(i.get_text(strip=True))
     if len(lst) == 0:
         return [""]
     print(lst[0])
     text = lst[0]
+    print(text)
     accum = ""
     if "Job Description" in text:
         index = text.find("Job Description")
@@ -72,6 +76,12 @@ def getSeeMore(url):
             accum+=text[i]
     elif "About Us" in lst[0]:
         index = text.find("About Us")
+        for i in range(index+7,len(text)):
+            if text[i] == "\\":
+                return list(accum)
+            accum+=text[i]
+    elif "Overview" in lst[0]:
+        index = text.find("Overview")
         for i in range(index+7,len(text)):
             if text[i] == "\\":
                 return list(accum)

@@ -1,9 +1,10 @@
 from django.apps import AppConfig
 
 
-class JobwebsiteConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'jobwebsite'
+# class UserConfig(AppConfig):
+#     default_auto_field = 'django.db.models.BigAutoField'
+#     name = 'jobwebsite'
 
-    def ready(self):
-        import jobwebsite.signals
+#     # add this
+#     def ready(self):
+#         import jobwebsite.signals  # noqa

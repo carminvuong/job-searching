@@ -19,9 +19,11 @@ Results
       <div class="shadow-lg mb-5 bg-white rounded" style = "margin-left: 10%; margin-right: 10%; margin-top: 4%; 
       padding-left: 5%; padding-right: 5%; padding-top: 2.5%; padding-bottom: 2.5%;">
            <div class="d-flex justify-content-between">
-              <h1 font-size="100px" class="mt-2" id="title"> {{i.title}}</h1>
+              <h1 font-size="100px"  id="title"> {{i.title}}</h1>
               <form method="POST">
                 {% csrf_token %}
+                <input type="checkbox" class="faChkRnd" value={{i.id}}>
+                
                 <label for="id-of-input" class="custom-checkbox">
                   <input type="checkbox" id="id-of-input" name="favorite" value={{i.id}}>
                   <i class="glyphicon glyphicon-star-empty"></i>
@@ -36,15 +38,12 @@ Results
               
             </div>
           <h2 font-size="100px" class="mt-2 lead" id="company" style = "font-size:1.9em"> {{i.company}}</h2>
-          <h3 font-size="100px" class="mt-2" id="salary" style="color:green"> {{i.salary}}</h3>
+          <h3 font-size="100px" class="mt-2 lead" id="salary" style="color:green;font-size:1.9em"> {{i.salary}}</h3>
           <h3 font-size="100px" class="mt-2 lead " id="location" style = "font-size:1.5em"> <i class="fas fa-map-marker-alt fa-1x" style = "max-width: 50%;
             max-height: 50%;"></i> {{i.location}}</h3>
-          <!-- <h2 font-size="100px"class="mt-2" id="description"> {{i.description}}</h2> -->
-          <h3 font-size="100px"class="mt-2 lead" id="url" style = "font-size:1.6em;color:black"> <a href="{{i.url}}">Click here for more info!</a></h3>
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#descriptionModal"> View Description </button>
-
           <div class="modal fade" id="descriptionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-xl" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">Description</h5>
@@ -59,11 +58,14 @@ Results
             </div>
          </div>
 
-        <form method="POST">
+        <!-- <form method="POST">
           {% csrf_token %}
         <button type="submit"  name="moreInfo" value={{i.id}} class="moreInfo btn btn-outline-info mt-2">See More</button>
         </form>
-          <br>
+      -->
+      <br>
+      <a href = "/home/"> <button name="applyHere" class="applyHere btn btn-outline-info mt-2">Apply</button> </a>
+      <br>
         </div>
       {% endfor %}
       
