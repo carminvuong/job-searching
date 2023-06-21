@@ -50,13 +50,13 @@
   margin-right: 20px;
   border-radius: 90px;
   padding: 5px;
-  background: purple;   
+  background: #5e3975;   
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .SearchButton button:hover {
-  background: #562f6e;
+  background: #442457;
 }
 
 .form {
