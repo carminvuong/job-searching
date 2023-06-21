@@ -16,7 +16,6 @@ def getSeeMore(url):
     words = html.find_all('section', class_='content')
     lst = []
     for i in words:
-        # print(i)
         lst.append(i.get_text(strip=True))
     if len(lst) == 0:
         return [""]
@@ -31,4 +30,4 @@ def getDescription(url):
     driver.execute_script("window.stop();")
     html = BeautifulSoup(driver.page_source, 'lxml')
     words = html.find_all('section', class_='content')
-    return words[0]
+    return words

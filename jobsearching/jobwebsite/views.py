@@ -11,7 +11,10 @@ from django.template import *
 import json
 import os
 from datetime import date
-first = True
+
+all_jobs = []
+kw = ""
+lc = ""
 
 def file_is_empty(path):
     return os.stat(path).st_size == 0
@@ -52,33 +55,11 @@ def profile(request):
 def support(request):
     return render(request, "jobwebsite/support.html")
 
-def findJob(request,first=True):
+def findJob(request):
     if request.user.is_authenticated:
         if request.method == "POST":
             form = JobForm(request.POST)
-            if request.POST.get("favorite"):
-                profile = request.user.profile
-                object_id = request.POST["favorite"]
-                job_object = Job.objects.get(id=object_id)
-                job_object.favorite = True 
-                profile.add_fav({profile.favCount:job_object.id})
-                print("FAVORITED: "+profile.favorites)
-                request.user.save()
-                profile.save()
-            if request.POST.get("moreInfo"):
-                object_id = request.POST["moreInfo"]
-                job_object = Job.objects.get(id=object_id)
-                description = str(getDescription(job_object.url))
-                description = description.replace("<br/>", "")
-                description = description.replace("<li>", " \n")
-                description = description.replace("</li>", "")
-                description = description.replace("<b>", " ")
-                description = description.replace("</b>", " ")
-                job_object.description = description
-                return render(request, "jobwebsite/moreInfo.html/", {"job": job_object})
-
-            elif form.is_valid():
-                first = False
+            if form.is_valid():
                 lc = form.cleaned_data["location"].lower()
                 kw = form.cleaned_data["keywords"].lower()
                 cj = CareerjetAPIClient("en_US")
@@ -135,13 +116,15 @@ def findJob(request,first=True):
                             job.description = description
                             all_jobs.append(job)
                             job.save()
-                        return render(request,'jobwebsite/results.html/',{"jobs":all_jobs,"kw":" ".join(kw.split("_")),"lc":" ".join(lc.split("_"))})
+                            kw = " ".join(kw.split("_"))
+                            lc = " ".join(lc.split("_"))
+                        return HttpResponseRedirect("/results/")
                     #Writing api returned json into file
                     #If different inputs then write a description for each job
                     else:
                         data[f"{lc} {kw}"] = result_json
                         for j in data[f"{lc} {kw}"]["jobs"]:
-                            description = getSeeMore(j["url"])
+                            description = getDescription(j["url"])
                             if description:
                                 j["description"] = description[0]
                             else:
@@ -158,12 +141,15 @@ def findJob(request,first=True):
                         job.location = i["locations"]
                         job.url = i["url"]
                         job.description = i["description"]
+                        all_jobs.append(job)
                         # user.profile.add_fav(job)
                         job.save()
-                    with open("jobs.json", "w") as outfile:
-                        outfile.write(json.dumps(data,indent=4))
-                        outfile.close()
-                    return render(request, 'jobwebsite/results.html/', {"jobs": all_jobs,  "kw":" ".join(kw.split("_")),"lc":" ".join(lc.split("_"))})
+                        with open("jobs.json", "w") as outfile:
+                            outfile.write(json.dumps(data,indent=4))
+                            outfile.close()
+                        kw = " ".join(kw.split("_"))
+                        lc = " ".join(lc.split("_"))
+                    return HttpResponseRedirect('results')
                 else:
                     result = {}
                     result[f"{lc} {kw}"] = result_json
@@ -179,16 +165,19 @@ def findJob(request,first=True):
                         job.salary = i["salary"]
                         job.location = i["locations"]
                         job.url = i["url"]
-                        description = getSeeMore(job.url)
+                        description = getDescription(job.url)
                         if not(description):
                             description = [""]
                         job.description = description[0]
                         all_jobs.append(job)
+                        print(job)
                         job.save()
                     with open("jobs.json", "w") as outfile:
                         outfile.write(json.dumps(result_json,indent=4))
                         outfile.close()
-                    return render(request, 'jobwebsite/results.html/', {"jobs": all_jobs,  "a": kw})
+                    kw = " ".join(kw.split("_"))
+                    lc = " ".join(lc.split("_"))
+                    return HttpResponseRedirect('/results/')
         else:
             form = JobForm()
         return render(request, 'jobwebsite/findJob.html', {'form': form})
@@ -196,4 +185,21 @@ def findJob(request,first=True):
         return HttpResponseRedirect("/login/")
     
 
-
+def results(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            if request.POST.get("favorite"):
+                profile = request.user.profile
+                object_id = request.POST["favorite"]
+                job_object = Job.objects.get(id=object_id)
+                job_object.favorite = True 
+                profile.add_fav({profile.favCount:job_object.id})
+                print("FAVORITED: "+profile.favorites)
+                request.user.save()
+                profile.save()
+            print("All Jobs: "+all_jobs)
+            return render(request, 'jobwebsite/results.html/', {"jobs": all_jobs,  "kw":" ".join(kw.split("_")),"lc":" ".join(lc.split("_"))})
+        else:
+            return render(request, 'jobwebsite/results.html/', {"jobs": all_jobs,  "kw":" ".join(kw.split("_")),"lc":" ".join(lc.split("_"))})    
+    else:
+        return HttpResponseRedirect("/login/")

@@ -47,5 +47,5 @@ class UpdateProfile(forms.ModelForm):
 
 
 class JobForm(forms.Form):
-    keywords = forms.CharField(max_length="1000", required=True, widget=forms.TextInput(attrs={'placeholder': 'Gardener', 'style': 'width: 250px;', 'class': 'form-control-lg mb-1'}))
+    keywords = forms.CharField(max_length="1000", required=True, widget=forms.TextInput(attrs={'placeholder': 'Garden', 'style': 'width: 250px;', 'class': 'form-control-lg mb-1'}))
     location = forms.CharField(max_length="1000", required=True, widget=forms.TextInput(attrs={'placeholder': 'California', 'style': 'width: 250px;', 'class': 'form-control-lg mb-1'}))
