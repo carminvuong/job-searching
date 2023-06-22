@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Contact
+Pharos | Contact
 {% endblock %}
 
 {% block content %}
@@ -18,8 +18,8 @@ Contact
 
                 <!--Grid column-->
                 <div class="col-md-9 mb-md-0 mb-5">
-                    <form id="contact-form" name="contact-form" action="mail.php" method="POST">
-        
+                    <form id="contact-form" name="contact-form" action="/mail/" method="POST">
+                        {% csrf_token %} 
                         <!--Grid row-->
                         <div class="row">
         
@@ -72,6 +72,7 @@ Contact
                     </form>
         
                     <div class="text-center text-md-left">
+                        <!-- <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Send</a> -->
                         <a class="btn btn-primary" onclick="validateForm();">Send</a>
                     </div>
                     <div class="status"></div>
@@ -112,34 +113,34 @@ Contact
 
 <script>
     function validateForm() {
-  var name =  document.getElementById('name').value;
-  if (name == "") {
-      document.querySelector('.status').innerHTML = "Name cannot be empty";
-      return false;
-  }
-  var email =  document.getElementById('email').value;
-  if (email == "") {
-      document.querySelector('.status').innerHTML = "Email cannot be empty";
-      return false;
-  } else {
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      if(!re.test(email)){
-          document.querySelector('.status').innerHTML = "Email format invalid";
-          return false;
-      }
-  }
-  var subject =  document.getElementById('subject').value;
-  if (subject == "") {
-      document.querySelector('.status').innerHTML = "Subject cannot be empty";
-      return false;
-  }
-  var message =  document.getElementById('message').value;
-  if (message == "") {
-      document.querySelector('.status').innerHTML = "Message cannot be empty";
-      return false;
-  }
-  document.querySelector('.status').innerHTML = "Sending...";
-}
+        var name =  document.getElementById('name').value;
+        if (name == "") {
+            document.querySelector('.status').innerHTML = "Name cannot be empty";
+            return false;
+        }
+        var email =  document.getElementById('email').value;
+        if (email == "") {
+            document.querySelector('.status').innerHTML = "Email cannot be empty";
+            return false;
+        } else {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if(!re.test(email)){
+                document.querySelector('.status').innerHTML = "Email format invalid";
+                return false;
+            }
+        }
+        var subject =  document.getElementById('subject').value;
+        if (subject == "") {
+            document.querySelector('.status').innerHTML = "Subject cannot be empty";
+            return false;
+        }
+        var message =  document.getElementById('message').value;
+        if (message == "") {
+            document.querySelector('.status').innerHTML = "Message cannot be empty";
+            return false;
+        }
+        document.querySelector('.status').innerHTML = "Sending...";
+    }
 </script>
 
 {% endblock %}

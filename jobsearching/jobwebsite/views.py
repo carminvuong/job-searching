@@ -11,7 +11,7 @@ from django.template import *
 import json
 import os
 from datetime import date
-first = True
+import subprocess
 
 def file_is_empty(path):
     return os.stat(path).st_size == 0
@@ -29,8 +29,6 @@ def profile(request):
             profile_form = UpdateProfile(request.POST, instance=request.user.profile)
             favorites = user.profile.get_fave()
             favs = list(favorites.values())
-            for i in range(0,len(favs)):
-                favs[i] = globals()[favs[i]]
             if profile_form.is_valid() and user_form.is_valid():
                 user_form.save()
                 profile_form.save()
@@ -65,20 +63,10 @@ def findJob(request,first=True):
                 print("FAVORITED: "+profile.favorites)
                 request.user.save()
                 profile.save()
-            if request.POST.get("moreInfo"):
-                object_id = request.POST["moreInfo"]
-                job_object = Job.objects.get(id=object_id)
-                description = str(getDescription(job_object.url))
-                description = description.replace("<br/>", "")
-                description = description.replace("<li>", " \n")
-                description = description.replace("</li>", "")
-                description = description.replace("<b>", " ")
-                description = description.replace("</b>", " ")
-                job_object.description = description
-                return render(request, "jobwebsite/moreInfo.html/", {"job": job_object})
+                return HttpResponseRedirect("/profile/")
+
 
             elif form.is_valid():
-                first = False
                 lc = form.cleaned_data["location"].lower()
                 kw = form.cleaned_data["keywords"].lower()
                 cj = CareerjetAPIClient("en_US")
@@ -160,9 +148,10 @@ def findJob(request,first=True):
                         job.description = i["description"]
                         # user.profile.add_fav(job)
                         job.save()
-                    with open("jobs.json", "w") as outfile:
-                        outfile.write(json.dumps(data,indent=4))
-                        outfile.close()
+                        all_jobs.append(job)
+                        with open("jobs.json", "w") as outfile:
+                            outfile.write(json.dumps(data,indent=4))
+                            outfile.close()
                     return render(request, 'jobwebsite/results.html/', {"jobs": all_jobs,  "kw":" ".join(kw.split("_")),"lc":" ".join(lc.split("_"))})
                 else:
                     result = {}
@@ -194,6 +183,12 @@ def findJob(request,first=True):
         return render(request, 'jobwebsite/findJob.html', {'form': form})
     else:
         return HttpResponseRedirect("/login/")
+
+def mail(request):
+    subprocess.call("jobwebsite/templates/jobwebsite/mail.php")
+    # proc = subprocess.Popen("php /path/to/my/script.php", shell=True,
+    # stdout=subprocess.PIPE)
+    # script_response = proc.stdout.read()j
     
 
 

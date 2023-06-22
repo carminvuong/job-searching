@@ -2,7 +2,7 @@
 {% load static %} 
 
 {% block title %}
-Profile
+Pharos | Profile
 {% endblock %}
 
 {% block content %}
@@ -40,25 +40,17 @@ Profile
 			      	<hr>
 			    	<div class="card-text">
 			    		{% for i in favs %}
-						<!-- <div style="justify-content: space-around;"> -->
-							<p font-size="2.0em" class="align-middle" id="title">{{i.title}} <i class="fas fa-briefcase" style = "max-width: 50%; max-height: 50%;float:right"></i><p> 
-							
-						<!-- </div> -->
+							<h5 font-size="2.0em" class="mb-2 pb-2" id="title">- {{i.title}}
+								<a href = "{{i.url}}" target="_blank">
+									<i class="fas fa-briefcase fa-2x" style = "max-width: 50%; max-height: 50%; float:right"></i>
+									<!-- <button type="button" class="btn btn-outline-primary mb-1" style="float: right"> View </button>  -->
+								</a>
+							</h5>
 						<hr>
 						<br>
 						{% endfor %}
 			        </div>
 		    	</div>
-		    	<!-- <div class="row">
-		    		<div class="col-6 my-auto">
-		    			<h2 class="font-weight-bold pt-4">Favorites</h2>
-						{% for i in favs %}
-						<h1 font-size="100px"class="mt-2" id="title"> {{i.title}}</h1>
-						<hr>
-						<br>
-						{% endfor %}
-		    		</div>
-		    	</div> -->
 		      	<br>
 		    </div> 
 		</div>
