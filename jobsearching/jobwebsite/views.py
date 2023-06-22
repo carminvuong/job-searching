@@ -11,10 +11,7 @@ from django.template import *
 import json
 import os
 from datetime import date
-
-all_jobs = []
-kw = ""
-lc = ""
+import subprocess
 
 def file_is_empty(path):
     return os.stat(path).st_size == 0
@@ -32,8 +29,6 @@ def profile(request):
             profile_form = UpdateProfile(request.POST, instance=request.user.profile)
             favorites = user.profile.get_fave()
             favs = list(favorites.values())
-            for i in range(0,len(favs)):
-                favs[i] = globals()[favs[i]]
             if profile_form.is_valid() and user_form.is_valid():
                 user_form.save()
                 profile_form.save()
@@ -55,11 +50,23 @@ def profile(request):
 def support(request):
     return render(request, "jobwebsite/support.html")
 
-def findJob(request):
+def findJob(request,first=True):
     if request.user.is_authenticated:
         if request.method == "POST":
             form = JobForm(request.POST)
-            if form.is_valid():
+            if request.POST.get("favorite"):
+                profile = request.user.profile
+                object_id = request.POST["favorite"]
+                job_object = Job.objects.get(id=object_id)
+                job_object.favorite = True 
+                profile.add_fav({profile.favCount:job_object.id})
+                print("FAVORITED: "+profile.favorites)
+                request.user.save()
+                profile.save()
+                return HttpResponseRedirect("/profile/")
+
+
+            elif form.is_valid():
                 lc = form.cleaned_data["location"].lower()
                 kw = form.cleaned_data["keywords"].lower()
                 cj = CareerjetAPIClient("en_US")
@@ -116,15 +123,13 @@ def findJob(request):
                             job.description = description
                             all_jobs.append(job)
                             job.save()
-                            kw = " ".join(kw.split("_"))
-                            lc = " ".join(lc.split("_"))
-                        return HttpResponseRedirect("/results/")
+                        return render(request,'jobwebsite/results.html/',{"jobs":all_jobs,"kw":" ".join(kw.split("_")),"lc":" ".join(lc.split("_"))})
                     #Writing api returned json into file
                     #If different inputs then write a description for each job
                     else:
                         data[f"{lc} {kw}"] = result_json
                         for j in data[f"{lc} {kw}"]["jobs"]:
-                            description = getDescription(j["url"])
+                            description = getSeeMore(j["url"])
                             if description:
                                 j["description"] = description[0]
                             else:
@@ -141,15 +146,13 @@ def findJob(request):
                         job.location = i["locations"]
                         job.url = i["url"]
                         job.description = i["description"]
-                        all_jobs.append(job)
                         # user.profile.add_fav(job)
                         job.save()
+                        all_jobs.append(job)
                         with open("jobs.json", "w") as outfile:
                             outfile.write(json.dumps(data,indent=4))
                             outfile.close()
-                        kw = " ".join(kw.split("_"))
-                        lc = " ".join(lc.split("_"))
-                    return HttpResponseRedirect('results')
+                    return render(request, 'jobwebsite/results.html/', {"jobs": all_jobs,  "kw":" ".join(kw.split("_")),"lc":" ".join(lc.split("_"))})
                 else:
                     result = {}
                     result[f"{lc} {kw}"] = result_json
@@ -165,41 +168,27 @@ def findJob(request):
                         job.salary = i["salary"]
                         job.location = i["locations"]
                         job.url = i["url"]
-                        description = getDescription(job.url)
+                        description = getSeeMore(job.url)
                         if not(description):
                             description = [""]
                         job.description = description[0]
                         all_jobs.append(job)
-                        print(job)
                         job.save()
                     with open("jobs.json", "w") as outfile:
                         outfile.write(json.dumps(result_json,indent=4))
                         outfile.close()
-                    kw = " ".join(kw.split("_"))
-                    lc = " ".join(lc.split("_"))
-                    return HttpResponseRedirect('/results/')
+                    return render(request, 'jobwebsite/results.html/', {"jobs": all_jobs,  "a": kw})
         else:
             form = JobForm()
         return render(request, 'jobwebsite/findJob.html', {'form': form})
     else:
         return HttpResponseRedirect("/login/")
+
+def mail(request):
+    subprocess.call("jobwebsite/templates/jobwebsite/mail.php")
+    # proc = subprocess.Popen("php /path/to/my/script.php", shell=True,
+    # stdout=subprocess.PIPE)
+    # script_response = proc.stdout.read()j
     
 
-def results(request):
-    if request.user.is_authenticated:
-        if request.method == "POST":
-            if request.POST.get("favorite"):
-                profile = request.user.profile
-                object_id = request.POST["favorite"]
-                job_object = Job.objects.get(id=object_id)
-                job_object.favorite = True 
-                profile.add_fav({profile.favCount:job_object.id})
-                print("FAVORITED: "+profile.favorites)
-                request.user.save()
-                profile.save()
-            print("All Jobs: "+all_jobs)
-            return render(request, 'jobwebsite/results.html/', {"jobs": all_jobs,  "kw":" ".join(kw.split("_")),"lc":" ".join(lc.split("_"))})
-        else:
-            return render(request, 'jobwebsite/results.html/', {"jobs": all_jobs,  "kw":" ".join(kw.split("_")),"lc":" ".join(lc.split("_"))})    
-    else:
-        return HttpResponseRedirect("/login/")
+

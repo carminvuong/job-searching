@@ -8,7 +8,7 @@ urlpatterns = [
     path('profile/', views.profile),
     path('support/', views.support),
     path('findJob/', views.findJob),
-    path('results/',views.results)
+    path('mail/', views.mail)
 
 
 ]
